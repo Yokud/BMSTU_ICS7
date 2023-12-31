@@ -1,6 +1,6 @@
 # BMSTU_ICS7
 
-All works for all courses from Bauman Moscow State Technical University
+All works for all courses from Bauman Moscow State Technical University (BMSTU)
 
 **Faculty:** Informatics and Control Systems (ICS)
 
