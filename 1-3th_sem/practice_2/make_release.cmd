@@ -1,0 +1,1 @@
+pyinstaller -F my_repl.py

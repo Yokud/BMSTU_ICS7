@@ -1,0 +1,6 @@
+select Merchants.Name, Shops.Name, Towns.Name
+from (Merchants join Shops on Merchants.Id = Shops.Id_merchant) join Towns on Shops.Id_town = Towns.Id
+where Shops.Name in (select Shops.Name
+					 from Shops join Towns on Shops.Id_town = Towns.Id
+					 where Towns.Type = 'Город')
+	  and Can_invest = true

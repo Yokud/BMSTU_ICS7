@@ -1,0 +1,33 @@
+select Id, Ruler
+into Vassals
+from Towns;
+
+alter table Vassals add column Vassal_Id integer null;
+
+update Vassals
+set Vassal_Id = 3571 * Id % 1001
+where Vassal_Id is null;
+
+update Vassals
+set Vassal_Id = 0
+where Id in (select Id
+		   from Towns
+		   where Name = 'Солитьюд' or Name = 'Виндхельм');
+
+select *
+from Vassals
+where Vassal_id = 0;
+
+with recursive VassalsLevel(Id, Ruler, Vassal_id, Level) as (
+	select Id, Ruler, Vassal_id, 0 as Level
+	from Vassals
+	where Vassal_id = 0
+	
+	union all
+	
+	select v.Id, v.Ruler, v.Vassal_id, Level + 1
+	from Vassals as v join VassalsLevel as vl on v.Vassal_id = vl.Id
+)
+
+select *
+from VassalsLevel

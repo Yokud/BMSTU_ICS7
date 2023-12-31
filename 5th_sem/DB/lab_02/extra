@@ -1,0 +1,31 @@
+drop table if exists table_1;
+drop table if exists table_2;
+
+create table table_1 (
+  id                INTEGER,
+  var1              VARCHAR,
+  valid_from_dttm   DATE,
+  valid_to_dttm     DATE
+);
+
+insert into table_1 (id, var1, valid_from_dttm, valid_to_dttm) 
+values (1, 'A', '2018-09-01', '2018-09-15'),
+	   (1, 'B', '2018-09-16', '5999-12-31');
+
+create table table_2 (
+  id                INTEGER,
+  var2              VARCHAR,
+  valid_from_dttm  DATE,
+  valid_to_dttm     DATE
+);
+
+insert into table_2 (id, var2, valid_from_dttm, valid_to_dttm) values
+(1, 'A', '2018-09-01', '2018-09-18'),
+(1, 'B', '2018-09-19', '5999-12-31');
+
+select table_1.id, table_1.var1, table_2.var2, greatest(table_1.valid_from_dttm, table_2.valid_from_dttm) as valid_from_dttm, 
+											   least(table_1.valid_to_dttm, table_2.valid_to_dttm) as valid_to_dttm
+from table_1 join table_2 on greatest(table_1.valid_from_dttm, table_2.valid_from_dttm) < least(table_1.valid_to_dttm, table_2.valid_to_dttm)
+
+drop table table_1;
+drop table table_2;

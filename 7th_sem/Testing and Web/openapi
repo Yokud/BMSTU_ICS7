@@ -1,0 +1,308 @@
+openapi: 3.0.1
+info:
+  title: mbti_web
+  version: '2.0'
+paths:
+  /api/Characters:
+    get:
+      tags:
+        - Characters
+      parameters:
+        - name: typeuk
+          in: query
+          schema:
+            type: integer
+            format: int32
+            default: -1
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Characters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+      responses:
+        '200':
+          description: Success
+  /api/Characters/{id}:
+    get:
+      tags:
+        - Characters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+    patch:
+      tags:
+        - Characters
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CharacterModel'
+      responses:
+        '200':
+          description: Success
+  /api/Types:
+    get:
+      tags:
+        - Types
+      responses:
+        '200':
+          description: Success
+  /api/Types/{id}:
+    get:
+      tags:
+        - Types
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+    patch:
+      tags:
+        - Types
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TypeModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TypeModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TypeModel'
+      responses:
+        '200':
+          description: Success
+  /api/Users/authenticate:
+    post:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+      responses:
+        '200':
+          description: Success
+  /api/Users/register:
+    post:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: Success
+  /api/Users:
+    get:
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Success
+    post:
+      tags:
+        - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: Success
+  /api/Users/{id}:
+    get:
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+    patch:
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: Success
+    delete:
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+components:
+  schemas:
+    AuthenticateRequest:
+      required:
+        - login
+        - password
+      type: object
+      properties:
+        login:
+          type: string
+        password:
+          type: string
+      additionalProperties: false
+    CharacterModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        type:
+          type: integer
+          format: int32
+        category:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TypeModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UserModel:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        login:
+          type: string
+          nullable: true
+        password:
+          type: string
+          nullable: true
+        nickname:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        telagram:
+          type: string
+          nullable: true
+        typeuk:
+          type: integer
+          format: int32
+        dateofbirth:
+          type: string
+          format: date-time
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345qwerty\""
+      name: Authorization
+      in: header
+security:
+  - Bearer: []

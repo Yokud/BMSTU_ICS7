@@ -1,0 +1,361 @@
+41
+
+Bolshoy theatre
+Unona and Avos
+Rezanov
+600
+5000
+1
+1
+
+MXAT
+Otravlennaya tunika
+Gumilev
+300
+7000
+1
+1
+
+MXAT
+Krasniy Motsart
+Vinchionok
+400
+5000
+2
+Motsart
+Austria
+16
+2.300000
+
+Teatrium
+Huligan. Ispoved
+Bezrukov
+7000
+9000
+2
+Bezrukov
+Russia
+18
+2.000000
+
+Moscow Drama Theatre
+Malysh and Karlson
+Nicolaenko
+400
+800
+0
+6
+1
+
+Bolshoy theatre
+Baron Munghauzen
+Diachkovskiy
+500
+1500
+1
+2
+
+Small Theatre
+Skazki uchonogo kota
+Ovchinnikov
+500
+1200
+0
+3
+0
+
+Vakhtangova Theatre
+Piter Pen
+Koruchekov
+1200
+1600
+0
+7
+0
+
+Luny Theatre
+Faust
+Prokhanov
+400
+500
+2
+Gete
+Germany
+18
+1.500000
+
+MXTK
+Aibolit and Barmaley
+Nazarov
+200
+500
+0
+3
+1
+
+Congress-centre REU
+Uzhin with durakom
+Trushkin
+900
+10000
+1
+2
+
+MXAT
+Ottsy i deti
+Drimtriev
+300
+3500
+1
+1
+
+Sats Theatre
+Dvenadtsat mesyatsev
+Banevich
+200
+1500
+0
+5
+0
+
+MMDM
+Tom Soier
+Duglas
+700
+1500
+0
+4
+1
+
+MMDM
+Vozhd krasnokozhih
+Fiodorov
+900
+1500
+0
+12
+1
+
+MDM
+TODD
+Brechta
+1500
+7000
+2
+Korol i Shut
+USA
+18
+1.500000
+
+MTM
+Idiot
+Konchalovskiy
+500
+10000
+2
+Artemyev
+Russia
+16
+2.400000
+
+Theatre of Tabakova
+(Not) funny
+Marin
+2000
+3500
+1
+2
+
+Dramatic Art
+Miortvie dushi
+Yatsko
+600
+1500
+1
+0
+
+Theatre Spesintseva
+Groza
+Spesintsev
+300
+700
+0
+14
+1
+
+Moscow drama theatre
+Anna Karenina
+Zhitinkin
+1000
+3000
+1
+1
+
+S-P drama theatre
+Dar Bozhiy
+Egorov
+800
+1500
+1
+1
+
+Snark theatre
+Vinny Puh
+Aleksin
+500
+1000
+2
+Afanasieva
+Russia
+0
+1.000000
+
+Theatre 18+
+Father
+Muravitskiy
+1500
+2000
+1
+2
+
+Europe theatre
+Vrag naroda
+Dodin
+1500
+1700
+1
+1
+
+Kiev theatre
+Za dvumya zaitsami
+Yakovchuk
+700
+1600
+1
+2
+
+S-P Baltic house
+Stalin. Night.
+Alimov
+2000
+4000
+1
+0
+
+Leningrad theatre
+Hanuma
+Tovstonogov
+1500
+4000
+2
+Kancheli
+USSR
+12
+2.500000
+
+Satiricon
+Sluzhanki
+Viktuk
+1000
+1300
+1
+1
+
+Puskin theatre
+Office
+Kozak
+1300
+3000
+1
+0
+
+Theatre "Russong"
+Elder son
+Vampilov
+1500
+3000
+1
+1
+
+Vihtangov theatre
+Uncle Vanya
+Tuminas
+480
+800
+1
+1
+
+Vihtangov theatre
+Evgeniy Onegin
+Timanus
+1000
+6500
+1
+1
+
+GBUK
+Bestoloch
+Kamoletti
+1500
+12000
+1
+2
+
+MHAT
+Master and Margerett
+Belyakovich
+2500
+7000
+1
+1
+
+Mayakovskiy theatre
+Mother-cat
+Leonidov
+1000
+2500
+2
+Struzhkova
+Russia
+6
+2.000000
+
+Vihtangov theatre
+Our class
+Slobodzyanek
+600
+5000
+1
+1
+
+Nation theatre
+Dihanie
+Gatsalov
+1500
+3000
+1
+0
+
+MHT
+Drunked
+Rizhkov
+1850
+2500
+1
+1
+
+Ermolova theatre
+Demon
+Zemlyanskiy
+250
+1000
+1
+1
+
+f1
+f3
+44tg
+353
+3564
+1
+0

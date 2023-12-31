@@ -1,0 +1,11 @@
+select Shops.Name, Merchandise, Can_invest, Hours_start, Hours_end, Towns.Name, Towns.Ruler, Towns.Population
+from Shops join Towns on Shops.Id_town = Towns.Id
+where Id_town in (select Id_town
+				from Shops join Towns on Shops.Id_town = Towns.Id
+				group by Id_town
+				having Min(Population) >= (select avg(P)
+										 from (select Population as P
+											  from Towns
+											  where Type = 'Деревня') as Villages
+										 )
+				)

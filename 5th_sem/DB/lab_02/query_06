@@ -1,0 +1,5 @@
+select Towns.Name, Towns.Ruler, Towns.Population
+from Towns
+where Population > all (select Population
+					   from Towns
+					   where Towns.Name like '%лот%')

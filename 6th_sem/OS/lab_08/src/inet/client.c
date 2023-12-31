@@ -1,0 +1,53 @@
+#include <netdb.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <time.h>
+#include <unistd.h>
+#include <errno.h>
+
+#define SOCKET_PORT 8888
+#define BUF_SIZE 256
+
+int main(void)
+{
+    int sfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sfd == -1)
+    {
+        perror("socket call error");
+        return errno;
+    }
+
+    struct sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(SOCKET_PORT);
+    memset(addr.sin_zero, 0, sizeof(addr.sin_zero));
+
+    if (connect(sfd, (struct sockaddr *)&addr, sizeof(addr)) == -1)
+    {
+        perror("connect call error");
+        return errno;
+    }
+
+    char msg[BUF_SIZE];
+
+    int bytes;
+    char bufServer[BUF_SIZE];
+
+    for (;;)
+    {
+        snprintf(msg, BUF_SIZE, "Message from process #%d", getpid());
+        if (send(sfd, msg, strlen(msg), 0) == -1)
+        {
+            perror("send call error");
+            return errno;
+        }
+        printf("Message sent: %s\n", msg);
+        bytes = recv(sfd, bufServer, sizeof(bufServer), 0);
+        printf("\nResponse from server: %s\n\n", bufServer);
+
+        sleep(5);
+    }
+}

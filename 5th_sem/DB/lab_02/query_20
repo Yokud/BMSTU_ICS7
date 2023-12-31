@@ -1,0 +1,2 @@
+delete from shops_in_cities
+where Can_invest = false or Town_name = 'Фолкрит'

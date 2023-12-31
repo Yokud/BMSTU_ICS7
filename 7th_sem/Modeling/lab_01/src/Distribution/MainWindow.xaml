@@ -1,0 +1,59 @@
+﻿<Window x:Class="Distribution.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Distribution"
+        mc:Ignorable="d"
+        Title="Моделирование. ЛР1, Малышев И. А. ИУ7-71Б" Height="450" Width="800" Background="DimGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.75*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Margin="15" x:Name="DistributionChoise" SelectedIndex="0" VerticalContentAlignment="Center" SelectionChanged="DistributionChoise_SelectionChanged">
+                <TextBlock Text="Равномерное распределение"/>
+                <TextBlock Text="Пуассоновское распределение"/>
+            </ComboBox>
+
+            <DockPanel Grid.Column="1" x:Name="FirstParam">
+                <TextBlock x:Name="FirstParamText" Text="a = " VerticalAlignment="Center" Margin="15, 5, 0, 15" FontSize="24"/>
+                <TextBox  x:Name="FirstParamValue" Margin="0, 15, 15, 15" VerticalContentAlignment="Center"/>
+            </DockPanel>
+
+            <DockPanel Grid.Column="2" x:Name="SecondParam">
+                <TextBlock x:Name="SecondParamText" Text="b = " VerticalAlignment="Center" Margin="15, 5, 0, 15" FontSize="24"/>
+                <TextBox x:Name="SecondParamValue" Margin="0, 15, 15, 15" VerticalContentAlignment="Center"/>
+            </DockPanel>
+
+            <Button x:Name="DrawButton" Grid.Row="1" Grid.Column="1" Margin="35, 2.5, 35, 2.5" Content="Изобразить" Click="DrawButton_Click"/>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <WpfPlot x:Name="CDFPlot" Grid.Column="0" Margin="10" >
+
+            </WpfPlot>
+
+            <WpfPlot x:Name="PMFPlot" Grid.Column="1" Margin="10">
+
+            </WpfPlot>
+        </Grid>
+    </Grid>
+</Window>

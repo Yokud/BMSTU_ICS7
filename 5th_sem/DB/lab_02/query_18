@@ -1,0 +1,3 @@
+update Merchants
+set date_of_birth = '01-01-0001'
+where id = 9999

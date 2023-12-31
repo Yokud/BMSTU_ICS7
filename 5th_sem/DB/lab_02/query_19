@@ -1,0 +1,5 @@
+update Shops
+set hours_start = (select avg(hours_start)
+				  from Shops
+				  where id_town = 43)
+where id_town = 43

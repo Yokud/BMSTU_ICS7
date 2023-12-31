@@ -1,0 +1,8 @@
+select Id, Name, Ruler, Population,
+	(select count(Id)
+	from Shops 
+	where Towns.Id = Id_town) as Number_of_shops,
+	(select avg(Total_equity)
+	 from Chain_stores
+	 where Towns.Id = Id_town) as Avg_shops_equity
+from Towns

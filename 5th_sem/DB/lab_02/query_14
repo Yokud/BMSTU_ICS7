@@ -1,0 +1,4 @@
+select Name, Gender, Race, T.Sum_equity, T.Min_equity, T.Avg_equity
+from (select Id_merchant, sum(Total_equity) as Sum_equity, min(Total_equity) as Min_equity, avg(Total_equity) as Avg_equity
+	from Chain_stores
+	group by Id_merchant) as T join Merchants on Id_merchant = Merchants.Id

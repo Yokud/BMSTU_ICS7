@@ -1,0 +1,4 @@
+select Merchants.Name, Number_of_shops, Avg_equity
+from (select Id_merchant, count(Id_merchant) as Number_of_shops, avg(Total_equity) as Avg_equity
+	 from Chain_stores
+	 group by Id_merchant) as A join Merchants on Id_merchant = Merchants.Id

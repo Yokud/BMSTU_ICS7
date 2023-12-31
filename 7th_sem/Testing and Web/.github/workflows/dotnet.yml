@@ -1,0 +1,99 @@
+name: .Net
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: mbti_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
+          #POSTGRES_HOST: postgres
+        ports:
+          - 5432:5432
+        options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.*
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+              
+    - name: Install dependencies
+      run: dotnet restore
+      working-directory: mbti_web
+      
+    - name: Build
+      run: dotnet build
+      working-directory: mbti_web
+      
+    - name: Restore dependencies UnitTest
+      run: dotnet restore
+      working-directory: UnitTests
+    - name: Build UnitTest
+      run: dotnet build --no-restore                 
+      working-directory: UnitTests
+    - name: UnitTest
+      run: dotnet test UnitTests
+      
+    - name: Restore dependencies IntegrationTests
+      run: dotnet restore
+      working-directory: IntegrationTests
+    - name: Build IntegrationTests
+      run: dotnet build --no-restore                 
+      working-directory: IntegrationTests
+    - name: Init db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
+    - name: Fill db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
+    - name: IntegrationTests
+      run: dotnet test IntegrationTests
+      env:
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+    - name: Clear db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_clear.sql
+    - name: Drop db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_drop.sql
+    
+
+    - name: Restore dependencies E2ETest
+      run: dotnet restore
+      working-directory: E2ETest
+    - name: Build E2ETest
+      run: dotnet build --no-restore                 
+      working-directory: E2ETest
+    - name: Init db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_init.sql
+    - name: Fill db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_fill.sql
+    - name: E2ETest
+      run: dotnet test E2ETest
+      env:
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+    - name: Clear db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_clear.sql
+    - name: Drop db
+      run: psql "sslmode=disable user=postgres hostaddr=127.0.0.1 port=5432 password=1234 dbname=mbti_db" < db_drop.sql
+    

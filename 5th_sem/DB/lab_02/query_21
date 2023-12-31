@@ -1,0 +1,5 @@
+delete from Shops
+where id_merchant in (select Id
+					   from Merchants
+					   where Gender = 'Женщина' and Merchants.Name in (select Ruler
+																		from Towns))

@@ -1,0 +1,2 @@
+insert into Merchants
+values(9999, 'Майк Лжец', 'Мужчина', 'Каджит', date('01-01-01'))

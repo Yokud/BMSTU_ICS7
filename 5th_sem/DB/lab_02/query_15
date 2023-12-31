@@ -1,0 +1,5 @@
+select max(Name), race, Date_of_birth
+from Merchants
+group by race, Date_of_birth
+having extract(year from Date_of_birth) > 175
+order by race

@@ -1,0 +1,4 @@
+select distinct M.Name, M.Race, C.Total_equity
+from Merchants M join Chain_stores C on M.Id = C.Id_merchant
+where M.Race = 'Норд' and C.Total_equity > 75000
+order by C.Total_equity

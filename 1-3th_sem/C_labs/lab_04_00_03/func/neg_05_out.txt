@@ -1,0 +1,1 @@
+String has only one kind of word

@@ -1,0 +1,12 @@
+Pineapple
+Pineapple Inc.
+120
+200
+Apple
+Apple Inc.
+150
+50
+Grape
+Grape Inc.
+150
+60

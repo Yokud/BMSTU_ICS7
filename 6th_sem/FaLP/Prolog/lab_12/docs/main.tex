@@ -1,0 +1,593 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{imgs/}}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{caption}
+
+
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+	captionpos=t,
+	numbers=left, %Nummerierung
+	numberstyle=\small, % kleine Zeilennummern
+	frame=single, % Oberhalb und unterhalb des Listings ist eine Linie
+	stepnumber=1,                   
+	numbersep=5pt,                
+	showspaces=false,
+	tabsize=2,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	escapeinside={(*@}{@*)},
+	commentstyle=\color{greencomments},
+	morekeywords={partial, var, value, get, set},
+	keywordstyle=\color{bluekeywords},
+	stringstyle=\color{redstrings},
+	basicstyle=\ttfamily\small,
+}
+
+\usepackage[left=1cm,right=1cm, top=1cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\usepackage{array}
+\newcommand{\head}[2]{\multicolumn{1}{>{\centering\arraybackslash}p{#1}}{#2}}
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
+		
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.3\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №12-12(2)}\newline
+				\textbf{по дисциплине \newline "Функциональное и логическое программирование"}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Среда Visual Prolog. Структура программы. Работа программы}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Малышев И. А.}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-61Б}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель: } $\underline{\text{Толпинская Н. Б.}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+	\setcounter{page}{2}
+
+
+\chapter*{Лабораторная работа №12}
+\section*{Задание}
+Составить программу, то есть модель предметной области — базу знаний, объединив в ней информацию — знания:
+
+\begin{itemize}
+	\item <<Телефонный справочник>>: фамилия, № телефона, адрес - структура (город, улица, № дома, № квартиры);
+	\item <<Автомобили>>: фамилия владельца, марка, цвет, стоимость и др.;
+	\item <<Вкладчики банков>>: фамилия, банк, счет, сумма и др.
+\end{itemize}
+
+Владелец может иметь несколько телефонов, автомобилией вкладов (Факты). Используя правила, обеспечить возможность поиска:
+
+\begin{enumerate}
+	\item \begin{enumerate}[label=\alph*)]
+		\item По № телефона найти: фамилию, марку автомобиля, стоимость автомобиль (может быть несколько);
+		\item Используя сформированное в пункте А правило, по № телефона найти только марку автомобиля (автомобилей может быть несколько);
+	\end{enumerate}
+	\item Используя простой, не составной вопрос: по фамилии (уникальна в городе, но в разных городах есть однофамильцы) и городу проживания найти: улицу проживания, банки, в которых есть вклады и № телефона.
+\end{enumerate}
+
+Для одного из вариантов ответов, и для А, и для B, описать словесно порядок поиска ответа на вопрос, указав, как выбираются знания, и, при этом, для каждого этапа унификации, выписать подстановку — наибольший унификатор, и соответствующие примеры термов.
+
+\newpage
+\section*{Решение}
+\begin{lstlisting}
+domains
+	surname, phone, city, street, brand, color, bank = string
+	home, flat, cost, account, summ = integer
+	address = address(city, street, home, flat)
+		
+predicates
+	phone_book(surname, phone, address)
+	car(surname, brand, color, cost)
+	deposit(surname, bank, account, summ)
+	
+	car_by_phone(phone, surname, brand, cost)
+	brand_by_phone(phone, brand)
+	bank_and_street_by_surname_and_city(surname, city, bank, street, phone)
+	
+clauses
+	phone_book("Malyshev", "+78005553535", address("Moscow", "Obychnaya", 11, 2)).
+	phone_book("Shatskiy", "+71231421433", address("Saint Peterburg", "Olenevaya", 12, 4)).
+	phone_book("Voronin", "+71454663765", address("Saratov", "Bychkovaya", 12, 11)).
+	phone_book("Gribochkov", "+71531432289", address("Tver", "Tomatnaya", 12, 7)).
+	phone_book("Sazonov", "+71766543721", address("Moscow", "Marmeladnaya", 13, 6)).
+	phone_book("Tsetochkin", "+71728332062", address("Tver", "Kabachkovaya", 16, 1)).
+	
+	car("Shatskiy", "Suzuki", "red", 10000000).
+	car("Gribochkov", "BMW", "yellow", 15000000).
+	car("Voronin", "Volga", "black", 20000000).
+	
+	deposit("Sazonov", "Sber", 145464235, 1000).
+	deposit("Shatskiy", "Tinkoff", 585642576, 20000).
+	deposit("Voronin", "Raif", 346536624, 100000).
+	deposit("Malyshev", "Sber", 364562663, 10000).
+	
+	car_by_phone(Phone, Surname, Brand, Cost) :- phone_book(Surname, Phone, _), car(Surname, Brand, _, Cost).
+	
+	brand_by_phone(Phone, Brand) :- car_by_phone(Phone, _, Brand, _).
+	
+	bank_and_street_by_surname_and_city(Surname, City, Bank, Street, Phone) :- phone_book(Surname, Phone, address(City, Street, _, _)), deposit(Surname, Bank, _, _).
+		
+goal
+	car_by_phone("+71231421433", X, Y, Z).
+	brand_by_phone("+71531432289", X).
+	bank_and_street_by_surname_and_city("Malyshev", "Moscow", X, Y, Z).
+\end{lstlisting}
+
+\subsection*{SQL-аналог}
+\begin{lstlisting}
+-- Domains
+create type addres 
+(
+	city string not null,
+	street string not null,
+	home integer not null,
+	flat integer not null
+);
+	
+-- Predicates
+create table phone_book
+(
+	surname string not null,
+	phone string not null,
+	adress adress not null
+);
+	
+create table car
+(
+	surname string not null,
+	brand string not null,
+	color string not null,
+	cost integer not null
+);
+	
+create table deposit
+(
+	surname string not null,
+	bank string not null,
+	account integer not null,
+	summ integer not null
+);
+	
+create table car_by_phone as
+	select phone, surname, srand, sost
+	from phone_book join car on phone_book.surname = car.surname;
+	
+create table brand_by_phone as
+	select phone, brand
+	from car_by_phone;
+	
+create table bank_and_street_by_surname_and_city as
+	select Surname, address.city, bank, address.street, phone
+	from phone_book join deposit on phone_book.surname = deposit.surname;
+	
+-- Clauses
+insert into phone_book values
+	("Malyshev", "+78005553535", address("Moscow", "Obychnaya", 11, 2)),
+	("Shatskiy", "+71231421433", address("Saint Peterburg", "Olenevaya", 12, 4)),
+	("Voronin", "+71454663765", address("Saratov", "Bychkovaya", 12, 11)),
+	("Gribochkov", "+71531432289", address("Tver", "Tomatnaya", 12, 7)),
+	("Sazonov", "+71766543721", address("Moscow", "Marmeladnaya", 13, 6)),
+	("Tsetochkin", "+71728332062", address("Tver", "Kabachkovaya", 16, 1));
+	
+insert into car values
+	("Shatskiy", "Suzuki", "red", 10000000),
+	("Gribochkov", "BMW", "yellow", 15000000),
+	("Voronin", "Volga", "black", 20000000);
+	
+insert into deposit values
+	("Sazonov", "Sber", 145464235, 1000),
+	("Shatskiy", "Tinkoff", 585642576, 20000),
+	("Voronin", "Raif", 346536624, 100000),
+	("Malyshev", "Sber", 364562663, 10000);
+	
+-- Goal
+select *
+from car_by_phone
+where phone = "+71231421433";
+
+select * 
+from brand_by_phone
+where phone = "+71531432289";
+
+select *
+from bank_and_street_by_surname_and_city
+where surname = "Malyshev" and city = "Moscow";
+	
+\end{lstlisting}
+
+\section*{Описание порядка поиска ответа}
+
+\subsection*{Задание 1а}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{12 cm}|p{6 cm}|}
+			\hline
+			№ шага & Сравниваемые термы; результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат (к чему приводит?) \\
+			\hline 
+			1 & Сравнение: \newline car\_by\_phone(''+71231421433'', X, Y, Z) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			2-6 & ... & ... \\
+			\hline
+			7 & Сравнение: \newline car\_by\_phone(''+71231421433'', X, Y, Z) = \newline car(''Shatskiy'', ''Suzuki'', ''red'', 10000000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			8-9 & .. & .. \\
+			\hline
+			10 & Сравнение: \newline car\_by\_phone(''+71231421433'', X, Y, Z) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			11-13 & ... & ... \\
+			\hline
+			14 & Сравнение: \newline car\_by\_phone(''+71231421433'', X, Y, Z) = \newline car\_by\_phone(Phone, Surname, Brand, Cost). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71231421433'', Surname=X, Brand=Y, Cost=Z\} & Новое состояние резольвенты: \newline phone\_book(X, ''+71231421433'', \_), car(X, Y, \_, Z). \\
+			\hline
+			15 & Сравнение: \newline phone\_book(X, ''+71231421433'', \_) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			16 & Сравнение: \newline phone\_book(X, ''+71231421433'', \_) = \newline phone\_book(''Shatskiy'', ''+71231421433'', address(''Saint Peterburg'', ''Olenevaya'', 12, 4)).\newline Унификация успешна. \newline Подстановка: \{Phone=''+71231421433'', Surname=''Shatskiy'', Brand=Y, Cost=Z\} & Новое состояние резольвенты: \newline car(''Shatskiy'', Y, \_, Z) \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{11 cm}|p{7 cm}|}
+			\hline
+			17 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline car(''Shatskiy'', ''Suzuki'', ''red'', 10000000). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71231421433'', Surname=''Shatskiy'', Brand=''Suzuki'', Cost=10000000\} & Новое состояние резольвенты: пуста \newline Вывод: \newline X = ''Shatskiy'', Y = ''Suzuki'', Z = 10000000 \newline Откат, переход к следующему предложению, новая подстановка: \{Phone=''+71231421433'', Surname=''Shatskiy'', Brand=Y, Cost=Z\} \\
+			\hline
+			18 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline car(''Gribochkov'', ''BMW'', ''yellow'', 15000000). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			19 & ... & ... \\
+			\hline
+			20 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline deposit("Sazonov", "Sber", 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			21-23 & ... & ... \\
+			\hline
+			24 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline car\_by\_phone(Phone, Surname, Brand, Cost). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			25 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline brand\_by\_phone(Phone, Brand). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			26 & Сравнение: \newline car(''Shatskiy'', Y, \_, Z) = \newline bank\_and\_street\_by\_surname\_and\_city(Surname, City, Bank, Street, Phone). \newline Унификация неуспешна (несовпадение функторов) & Откат, достижение конца БЗ, переход к следующему предложению относительно шага 14. Подстановок больше нет \\
+			\hline
+			27 & Сравнение: \newline car\_by\_phone(''+71231421433'', X, Y, Z) = \newline bank\_and\_street\_by\_surname\_and\_city(Surname, City, Bank, Street, Phone) . \newline Унификация неуспешна (несовпадение функторов) & Достижение конца БЗ, резольвента пуста, завершение работы \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\subsection*{Задание 1b}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{11 cm}|p{7 cm}|}
+			\hline
+			№ шага & Сравниваемые термы; результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат (к чему приводит?) \\
+			\hline 
+			1 & Сравнение: \newline brand\_by\_phone(''+71531432289'', X) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)).\newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			2-14 & ... & ... \\
+			\hline
+			15 & Сравнение: \newline brand\_by\_phone(''+71531432289'', X) = \newline brand\_by\_phone(Phone, Brand). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71531432289'', Brand=X\} & Новое состояние резольвенты: \newline car\_by\_phone(''+71531432289'', \_, X, \_). \\
+			\hline
+			16 & Сравнение: \newline car\_by\_phone(''+71531432289'', \_, X, \_) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)).\newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			17-28 & ... & ... \\
+			\hline
+			29 & Сравнение: \newline car\_by\_phone(''+71531432289'', \_, X, \_) = \newline car\_by\_phone(Phone, Surname, Brand, Cost). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71531432289'', Brand=X\} & Новое состояние резольвенты: \newline phone\_book(Surname, ''+71531432289'', \_), car(Surname, X, \_, \_). \\
+			\hline
+			30 & Сравнение: \newline phone\_book(Surname, ''+71531432289'', \_) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)).\newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			31-32 & ... & ... \\
+			\hline
+			33 & Сравнение: \newline phone\_book(Surname, ''+71531432289'', \_) = \newline phone\_book(''Gribochkov'', ''+71531432289'', address(''Tver'', ''Tomatnaya'', 12, 7)). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71531432289'', Brand=X, Surname=''Gribochkov''\} & Новое состояние резольвенты: \newline car(''Gribochkov'', X, \_, \_). \\
+			\hline
+			34 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)).\newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{11 cm}|p{7 cm}|}
+			\hline
+			35-40 & ... & ... \\
+			\hline
+			41 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline car(''Shatskiy'', ''Suzuki'', ''red'', 10000000). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			42 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline car(''Gribochkov'', ''BMW'', ''yellow'', 15000000). \newline Унификация успешна. \newline Подстановка: \{Phone=''+71531432289'', Brand=''BMW''\} & Новое состояние резольвенты: пуста\newline Вывод: X=''BMW'' \newline Откат, переход к следующему предложению, новая подстановка: \{Phone=''+71531432289'', Brand=X, Surname=''Gribochkov''\} \\
+			\hline
+			43 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline car(''Voronin'', ''Volga'', ''black'', 20000000).\newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline 
+			44 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000).\newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline 
+			45-50 & ... & ... \\
+			\hline
+			51 & Сравнение: \newline car(''Gribochkov'', X, \_, \_) = \newline bank\_and\_street\_by\_surname\_and\_city(\newline Surname, City, Bank, Street, Phone).\newline Унификация неуспешна (несовпадение функторов) & Откат, достижение конца БЗ, переход к следующему предложению относительно шага 29. Подстановок больше нет \\
+			\hline
+			52 &  Сравнение: \newline car\_by\_phone(''+71531432289'', \_, X, \_) = \newline bank\_and\_street\_by\_surname\_and\_city(\newline Surname, City, Bank, Street, Phone).\newline Унификация неуспешна (несовпадение функторов) & Достижение конца БЗ, резольвента пуста, завершение работы \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\subsection*{Задание 2}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{11 cm}|p{7 cm}|}
+			\hline
+			№ шага & Сравниваемые термы; результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат (к чему приводит?) \\
+			\hline 
+			1 & Сравнение: \newline bank\_and\_street\_by\_surname\_and\_city(\newline ''Malyshev'', ''Moscow'', X, Y, Z) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			2-15 & ... & ... \\
+			\hline
+			16 & Сравнение: \newline bank\_and\_street\_by\_surname\_and\_city(\newline ''Malyshev'', ''Moscow'', X, Y, Z) = \newline bank\_and\_street\_by\_surname\_and\_city(Surname, City, Bank, Street, Phone).  \newline Унификация успешна. \newline Подстановка: \{Surname=''Malyshev'', City=''Moscow'', Bank=X, Street=Y, Phone=Z\} & Новое состояние резольвенты: \newline phone\_book(''Malyshev'', Z, address(''Moscow'', Y, \_, \_)), deposit(''Malyshev'', X, \_, \_) \\
+			\hline
+			17 & Сравнение: \newline phone\_book(''Malyshev'', Z, address(''Moscow'', Y, \_, \_)) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация успешна. \newline Подстановка: \{Surname=''Malyshev'', City=''Moscow'', Bank=X, Street=''Obychnaya'', Phone=''+78005553535''\} & Новое состояние резольвенты: \newline deposit(''Malyshev'', X, \_, \_) \\
+			\hline
+			18 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			19-27 & ... & ... \\
+			\hline
+			28 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			29-30 & ... & ... \\
+			\hline
+			31 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline deposit(''Malyshev'', ''Sber'', 364562663, 10000).  \newline Унификация успешна. \newline Подстановка: \{Surname=''Malyshev'', City=''Moscow'', Bank=''Sber'', Street=''Obychnaya'', Phone=''+78005553535''\} & Новое состояние резольвенты: пуста \newline Вывод: Surname=''Malyshev'', City=''Moscow'', X=''Sber'', Y=''Obychnaya'', Z=''+78005553535'' \newline Откат, переход к следующему предложению, новая подстановка: \{Surname=''Malyshev'', City=''Moscow'', Bank=X, Street=''Obychnaya'', Phone=''+78005553535''\} \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{11 cm}|p{7 cm}|}
+			\hline
+			32 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline car\_by\_phone(Phone, Surname, Brand, Cost) \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			33 & ... & ... \\
+			\hline
+			34 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline bank\_and\_street\_by\_surname\_and\_city(Surname, City, Bank, Street, Phone).  \newline Унификация неуспешна (несовпадение функторов) & Откат, достижение конца БЗ, переход к следующему предложению относительно шага 16. Подстановок больше нет \\
+			\hline
+			35 & Сравнение: \newline deposit(''Malyshev'', X, \_, \_) = \newline bank\_and\_street\_by\_surname\_and\_city(Surname, City, Bank, Street, Phone).  \newline Унификация неуспешна (несовпадение функторов) & Достижение конца БЗ, резольвента пуста, завершение работы \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\chapter*{Лабораторная работа №12(2)}
+\section*{Задание}
+Используя  базу знаний, хранящую знания (лаб. 13):
+\begin{itemize}
+	\item «Телефонный справочник»: Фамилия, №тел, Адрес – структура (Город, Улица, №дома, №кв),
+	\item «Автомобили»: Фамилия\_владельца, Марка, Цвет, Стоимость, и др.,
+	\item «Вкладчики банков»: Фамилия, Банк, счет, сумма, др.
+\end{itemize}
+
+Владелец может иметь несколько телефонов, автомобилей, вкладов (Факты). В разных городах есть однофамильцы, в одном городе – фамилия уникальна.
+
+Используя конъюнктивное правило и простой вопрос, обеспечить возможность поиска:
+
+По Марке и Цвету автомобиля найти Фамилию, Город, Телефон и Банки, в которых владелец автомобиля имеет вклады. Лишней информации не находить и не передавать!!!
+
+Владельцев может быть несколько (не более 3-х), один и ни одного.
+
+\begin{enumerate}
+	\item Для каждого из трех вариантов словесно подробно описать порядок формирования ответа (в виде таблицы). При этом, указать – отметить моменты очередного запуска алгоритма унификации и полный результат его работы. Обосновать следующий шаг работы системы. Выписать унификаторы – подстановки. Указать моменты, причины и результат отката, если он есть.
+	\item Для случая нескольких владельцев (2-х): 
+	приведите примеры (таблицы) работы системы при разных порядках следования в БЗ  процедур, и знаний в них: («Телефонный справочник», «Автомобили», «Вкладчики банков», или: «Автомобили», «Вкладчики банков», «Телефонный справочник»). Сделайте вывод: Одинаковы ли: множество работ и объем работ в разных случаях?
+	\item Оформите 2 таблицы, демонстрирующие порядок работы алгоритма унификации вопроса и подходящего заголовка правила (для двух случаев из пункта 2) и укажите результаты его работы: ответ и побочный эффект.
+\end{enumerate}
+
+\newpage
+\section*{Решение}
+\begin{lstlisting}
+domains
+	surname, phone, city, street, brand, color, bank = string
+	home, flat, cost, account, summ = integer
+	address = address(city, street, home, flat)
+		
+predicates
+	phone_book(surname, phone, address)
+	car(surname, brand, color, cost)
+	deposit(surname, bank, account, summ)
+	
+	car_by_phone(phone, surname, brand, cost)
+	brand_by_phone(phone, brand)
+	bank_and_street_by_surname_and_city(surname, city, bank, street, phone)
+	
+	surname_city_phone_bank_by_brand_color(brand, color, surname, city, phone, bank)
+		
+clauses
+	phone_book("Malyshev", "+78005553535", address("Moscow", "Obychnaya", 11, 2)).
+	phone_book("Shatskiy", "+71231421433", address("Saint Peterburg", "Olenevaya", 12, 4)).
+	phone_book("Voronin", "+71454663765", address("Saratov", "Bychkovaya", 12, 11)).
+	phone_book("Gribochkov", "+71531432289", address("Tver", "Tomatnaya", 12, 7)).
+	phone_book("Sazonov", "+71766543721", address("Moscow", "Marmeladnaya", 13, 6)).
+	phone_book("Tsetochkin", "+71728332062", address("Tver", "Kabachkovaya", 16, 1)).
+	
+	car("Shatskiy", "Suzuki", "red", 10000000).
+	car("Gribochkov", "BMW", "yellow", 15000000).
+	car("Voronin", "Volga", "black", 20000000).
+	
+	deposit("Sazonov", "Sber", 145464235, 1000).
+	deposit("Shatskiy", "Tinkoff", 585642576, 20000).
+	deposit("Voronin", "Raif", 346536624, 100000).
+	deposit("Malyshev", "Sber", 364562663, 10000).
+	
+	car_by_phone(Phone, Surname, Brand, Cost) :- phone_book(Surname, Phone, _), car(Surname, Brand, _, Cost).
+	
+	brand_by_phone(Phone, Brand) :- car_by_phone(Phone, _, Brand, _).
+	
+	bank_and_street_by_surname_and_city(Surname, City, Bank, Street, Phone) :- phone_book(Surname, Phone, address(City, Street, _, _)), deposit(Surname, Bank, _, _).
+	
+	surname_city_phone_bank_by_brand_color(Brand, Color, Surname, City, Phone, Bank) :-
+	car(Surname, Brand, Color, _),
+	phone_book(Surname, Phone, address(City, _, _, _)),
+	deposit(Surname, Bank, _, _).
+	
+goal
+	surname_city_phone_bank_by_brand_color("Suzuki", "red", Surname, City, Phone, Bank).
+\end{lstlisting}
+
+\subsection*{SQL-аналог}
+\begin{lstlisting}
+-- Domains
+create type addres 
+(
+	city string not null,
+	street string not null,
+	home integer not null,
+	flat integer not null
+);
+	
+-- Predicates
+create table phone_book
+(
+	surname string not null,
+	phone string not null,
+	adress adress not null
+);
+	
+create table car
+(
+	surname string not null,
+	brand string not null,
+	color string not null,
+	cost integer not null
+);
+	
+create table deposit
+(
+	surname string not null,
+	bank string not null,
+	account integer not null,
+	summ integer not null
+);
+	
+create table car_by_phone as
+	select phone, surname, srand, sost
+	from phone_book join car on phone_book.surname = car.surname;
+	
+create table brand_by_phone as
+	select phone, brand
+	from car_by_phone;
+	
+create table bank_and_street_by_surname_and_city as
+	select Surname, address.city, bank, address.street, phone
+	from phone_book join deposit on phone_book.surname = deposit.surname;
+	
+create table surname_city_phone_bank_by_brand_color as
+	select brand, color, surname, adress.city, phone, bank
+	from (car join phone_book on car.surname = phone_book.surname) as cp join deposit on cp.surname = deposit.surname;
+	
+-- Clauses
+insert into phone_book values
+	("Malyshev", "+78005553535", address("Moscow", "Obychnaya", 11, 2)),
+	("Shatskiy", "+71231421433", address("Saint Peterburg", "Olenevaya", 12, 4)),
+	("Voronin", "+71454663765", address("Saratov", "Bychkovaya", 12, 11)),
+	("Gribochkov", "+71531432289", address("Tver", "Tomatnaya", 12, 7)),
+	("Sazonov", "+71766543721", address("Moscow", "Marmeladnaya", 13, 6)),
+	("Tsetochkin", "+71728332062", address("Tver", "Kabachkovaya", 16, 1));
+	
+insert into car values
+	("Shatskiy", "Suzuki", "red", 10000000),
+	("Gribochkov", "BMW", "yellow", 15000000),
+	("Voronin", "Volga", "black", 20000000);
+	
+insert into deposit values
+	("Sazonov", "Sber", 145464235, 1000),
+	("Shatskiy", "Tinkoff", 585642576, 20000),
+	("Voronin", "Raif", 346536624, 100000),
+	("Malyshev", "Sber", 364562663, 10000);
+	
+-- Goal
+select *
+from surname_city_phone_bank_by_brand_color
+where brand = "Suzuki" and color = "red";
+	
+\end{lstlisting}
+
+\section*{Описание порядка поиска ответа}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{9 cm}|p{9 cm}|}
+			\hline
+			№ шага & Сравниваемые термы; результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат (к чему приводит?) \\
+			\hline 
+			... & ... & ... \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\end{document}

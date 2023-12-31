@@ -1,0 +1,1 @@
+gcc -std=c99 -Wall -DASM -DX87 -masm=intel -m80387 -o app.exe main.c

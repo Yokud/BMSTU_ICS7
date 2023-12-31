@@ -1,0 +1,419 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{imgs/}}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{caption}
+
+
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+	captionpos=t,
+	numbers=left, %Nummerierung
+	numberstyle=\small, % kleine Zeilennummern
+	frame=single, % Oberhalb und unterhalb des Listings ist eine Linie
+	stepnumber=1,                   
+	numbersep=5pt,                
+	showspaces=false,
+	tabsize=2,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	escapeinside={(*@}{@*)},
+	commentstyle=\color{greencomments},
+	morekeywords={partial, var, value, get, set},
+	keywordstyle=\color{bluekeywords},
+	stringstyle=\color{redstrings},
+	basicstyle=\ttfamily\small,
+}
+
+\usepackage[left=1cm,right=1cm, top=1cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\usepackage{array}
+\newcommand{\head}[2]{\multicolumn{1}{>{\centering\arraybackslash}p{#1}}{#2}}
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+	%\def\chaptername{} % убирает "Глава"
+	\thispagestyle{empty}
+	\begin{titlepage}
+		\noindent \begin{minipage}{0.15\textwidth}
+			\includegraphics[width=\linewidth]{b_logo}
+		\end{minipage}
+		\noindent\begin{minipage}{0.9\textwidth}\centering
+			\textbf{Министерство науки и высшего образования Российской Федерации}\\
+			\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+			\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+			\textbf{(национальный исследовательский университет)»}\\
+			\textbf{(МГТУ им. Н.Э.~Баумана)}
+		\end{minipage}
+		
+		\noindent\rule{18cm}{3pt}
+		\newline\newline
+		\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+		\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
+		
+		
+		\begin{center}
+			\noindent\begin{minipage}{1.3\textwidth}\centering
+				\Large\textbf{  Отчет по лабораторной работе №13-14}\newline
+				\textbf{по дисциплине \newline "Функциональное и логическое программирование"}\newline\newline
+			\end{minipage}
+		\end{center}
+		
+		\noindent\textbf{Тема} $\underline{\text{Структура программы на Prolog и использование правил}}$\newline\newline
+		\noindent\textbf{Студент} $\underline{\text{Малышев И. А.}}$\newline\newline
+		\noindent\textbf{Группа} $\underline{\text{ИУ7-61Б}}$\newline\newline
+		\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+		\noindent\textbf{Преподаватель: } $\underline{\text{Толпинская Н. Б.}}$\newline\newline\newline
+		
+		\begin{center}
+			\vfill
+			Москва~---~\the\year
+			~г.
+		\end{center}
+	\end{titlepage}
+	
+	
+	\setcounter{page}{2}
+
+\chapter*{Лабораторная работа №13}
+\section*{Задание}
+
+Создать базу знаний «Собственники», дополнив базу знаний, хранящую знания (лаб. 13):
+
+\begin{itemize}
+	\item <<Телефонный справочник>>: Фамилия, №тел, Адрес – структура (Город, Улица, №дома, №кв),
+	\item <<Автомобили>>: Фамилия\_владельца, Марка, Цвет, Стоимость, и др.,
+	\item <<Вкладчики банков>>: Фамилия, Банк, счет, сумма, др.,
+\end{itemize}
+
+знаниями о дополнительной собственности владельца. Преобразовать знания об автомобиле к форме знаний о собственности.
+
+Вид собственности (кроме автомобиля):
+
+\begin{itemize}
+	\item Строение, стоимость и другие его характеристики.
+	\item Участок, стоимость и другие его характеристики.
+	\item Водный\_транспорт, стоимость и другие его характеристики.
+\end{itemize}
+
+Описать и использовать вариантный домен: \textbf{Собственность}. Владелец может иметь, но только один объект каждого вида собственности (это касается и автомобиля), или не иметь некоторых видов собственности. 
+
+Используя конъюнктивное правило и разные формы задания одного вопроса (пояснять для какого №задания – какой вопрос), обеспечить возможность поиска:
+
+\begin{enumerate}
+	\item Названий всех объектов собственности заданного субъекта.
+	\item Названий и стоимости всех объектов собственности заданного субъекта.
+	\item Разработать правило, позволяющее найти суммарную стоимость всех объектов собственности заданного субъекта.
+\end{enumerate}
+
+Для 2-го пункта и одной фамилии составить таблицу, отражающую конкретный порядок работы системы, с объяснениями порядка работы и особенностей использования доменов  (указать конкретные Т1 и Т2 и полную подстановку на каждом шаге).
+
+\newpage
+\section*{Решение}
+
+\begin{lstlisting}
+domains
+	surname, phone, city, street, color, bank, name = string
+	home, flat, cost, account, summ, total = integer
+	address = address(city, street, home, flat)
+	
+	own = building(name, cost);
+			region(name, cost);
+			car(name, color, cost);
+			water_transport(name, color, cost)
+
+predicates
+	phone_book(surname, phone, address)
+	deposit(surname, bank, account, summ)
+	owner(surname, own)
+	
+	all_owns(surname, name)
+	all_owns_cost(surname, name, cost)
+	
+	all_owns_cost_type(surname, symbol, cost)
+	total_cost(surname, total)
+
+clauses
+	phone_book("Malyshev", "+78005553535", address("Moscow", "Obychnaya", 11, 2)).
+	phone_book("Shatskiy", "+71231421433", address("Saint Peterburg", "Olenevaya", 12, 4)).
+	phone_book("Voronin", "+71454663765", address("Saratov", "Bychkovaya", 12, 11)).
+	phone_book("Gribochkov", "+71531432289", address("Tver", "Tomatnaya", 12, 7)).
+	phone_book("Sazonov", "+71766543721", address("Moscow", "Marmeladnaya", 13, 6)).
+	phone_book("Tsetochkin", "+71728332062", address("Tver", "Kabachkovaya", 16, 1)).
+	
+	owner("Shatskiy", car("Suzuki", "red", 10000000)).
+	owner("Gribochkov", car("BMW", "yellow", 15000000)).
+	owner("Malyshev", car("Highwayman", "gray", 100000000)).
+	owner("Voronin", car("Volga", "black", 20000000)).
+	owner("Malyshev", region("Hell", 666666666)).
+	owner("Tsetochkin", building("Big garden", 550000)).
+	owner("Gribochkov", water_transport("Boatalia", "pink", 55555555)).
+	
+	deposit("Sazonov", "Sber", 145464235, 1000).
+	deposit("Shatskiy", "Tinkoff", 585642576, 20000).
+	deposit("Voronin", "Raif", 346536624, 100000).
+	deposit("Malyshev", "Sber", 364562663, 10000).
+	
+	all_owns(Surname, Name) :- owner(Surname, car(Name, _, _)).
+	all_owns(Surname, Name) :- owner(Surname, building(Name, _)).
+	all_owns(Surname, Name) :- owner(Surname, region(Name, _)).
+	all_owns(Surname, Name) :- owner(Surname, water_transport(Name, _, _)).
+	
+	all_owns_cost(Surname, Name, Cost) :- owner(Surname, car(Name, _, Cost)).
+	all_owns_cost(Surname, Name, Cost) :- owner(Surname, building(Name, Cost)).
+	all_owns_cost(Surname, Name, Cost) :- owner(Surname, region(Name, Cost)).
+	all_owns_cost(Surname, Name, Cost) :- owner(Surname, water_transport(Name, _, Cost)).
+	
+	all_owns_cost_type(Surname, car, Cost) :- owner(Surname, car(_, _, Cost)), !.
+	all_owns_cost_type(Surname, building, Cost) :- owner(Surname, building(_, Cost)), !.
+	all_owns_cost_type(Surname, region, Cost) :- owner(Surname, region(_, Cost)), !.
+	all_owns_cost_type(Surname, water_transport, Cost) :- owner(Surname, water_transport(_, _, Cost)), !.
+	all_owns_cost_type(_, _, 0).
+
+	total_cost(Surname, Total) :- 
+								all_owns_cost_type(Surname, car, Cost1),
+								all_owns_cost_type(Surname, building, Cost2),
+								all_owns_cost_type(Surname, region, Cost3),
+								all_owns_cost_type(Surname, water_transport, Cost4),
+								Total = Cost1 + Cost2 + Cost3 + Cost4.
+
+goal
+	all_owns("Malyshev", Name).
+	all_owns_cost("Shatskiy", Name, Cost).
+	total_cost("Gribochkov", Total).
+\end{lstlisting}
+
+\section*{Порядок работы}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{10 cm}|p{8 cm}|}
+			\hline
+			№ шага & Сравниваемые термы; результат; подстановка, если есть & Дальнейшие действия: прямой ход или откат (к чему приводит?) \\
+			\hline 
+			1 & Сравнение:\newline all\_owns\_cost(''Shatskiy'', Name, Cost) =\newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			2-21 & ... & ... \\
+			\hline
+			22 & Сравнение:\newline all\_owns\_cost(''Shatskiy'', Name, Cost) =\newline all\_owns\_cost(Surname, Name, Cost). \newline Унификация успешна \newline Подстановка: {Surname = ''Shatskiy'', Name = Name, Cost = Cost} & Новое состояние резольвенты: \newline owner(''Shatskiy'', car(Name, \_, Cost)) \newline owner(''Shatskiy'', building(Name, Cost))\newline owner(''Shatskiy'', region(Name, Cost))\newline owner(''Shatskiy'', water\_transport(Name, \_, Cost))\newline Откат, переход к следующему предложению \\
+			\hline
+			23 & Сравнение: \newline owner(''Shatskiy'', car(Name, \_, Cost)) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			24-28 & .. & .. \\
+			\hline
+			29 & Сравнение: \newline owner(''Shatskiy'', car(Name, \_, Cost)) =\newline owner(''Shatskiy'', car(''Suzuki'', ''red'', 10000000)). \newline Унификация успешна \newline Подстановка: {Surname = ''Shatskiy'', Name = ''Suzuki'', Cost = 10000000} & Вывод: Surname = ''Shatskiy'', Name = ''Suzuki'', Cost = 10000000 \newline Откат, переход к следующему предложению, новая подстановка: {Surname = ''Shatskiy'', Name = Name, Cost = Cost} \\
+			\hline
+			30 & Сравнение: \newline owner(''Shatskiy'', car(Name, \_, Cost)) =\newline owner(''Gribochkov'', car(''BMW'', ''yellow'', 15000000)).\newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			31-35 & ... & ... \\
+			\hline
+			36 & Сравнение: \newline owner(''Shatskiy'', car(Name, \_, Cost)) =\newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			37-53 & ... & Новое состояние резольвенты: \newline owner(''Shatskiy'', building(Name, Cost))\newline owner(''Shatskiy'', region(Name, Cost))\newline owner(''Shatskiy'', water\_transport(Name, \_, Cost)) \newline Откат, достижение БЗ, переход к следующему предложению относительно шага 23 \\
+			\hline
+
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{10 cm}|p{8 cm}|}
+			\hline
+			54 & Сравнение: \newline owner(''Shatskiy'', building(Name, Cost)) = \newline phone\_book(''Malyshev'', ''+78005553535'', address(''Moscow'', ''Obychnaya'', 11, 2)). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			55-74 & ... & ... \\
+			\hline
+			75 & Сравнение: \newline owner(''Shatskiy'', building(Name, Cost)) = \newline owner(''Shatskiy'', car(''Suzuki'', ''red'', 10000000)). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			76-81 & ... & ... \\
+			\hline
+			82 & Сравнение: \newline owner(''Shatskiy'', building(Name, Cost)) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			83-99 & ... & Новое состояние резольвенты: \newline owner(''Shatskiy'', region(Name, Cost))\newline owner(''Shatskiy'', water\_transport(Name, \_, Cost)) \newline Откат, достижение БЗ, переход к следующему предложению относительно шага 23 \\
+			\hline
+			100 & Сравнение: \newline owner(''Shatskiy'', building(Name, Cost)) = \newline owner(''Shatskiy'', car(''Suzuki'', ''red'', 10000000)). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			101-05 & ... & ... \\
+			\hline
+			106 & Сравнение: \newline owner(''Shatskiy'', region(Name, Cost)) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			107-123 & ... & Новое состояние резольвенты: \newline owner(''Shatskiy'', water\_transport(Name, \_, Cost)) \newline Откат, достижение БЗ, переход к следующему предложению относительно шага 23 \\
+			\hline
+			124 & Сравнение: \newline owner(''Shatskiy'', water\_transport(Name, \_, Cost)) = \newline owner(''Shatskiy'', car(''Suzuki'', ''red'', 10000000)). \newline Унификация неуспешна (несовпадение термов) & Откат, переход к следующему предложению \\
+			\hline
+			125-130 & ... & ... \\
+			\hline
+			131 & Сравнение: \newline owner(''Shatskiy'', water\_transport(Name, \_, Cost)) = \newline deposit(''Sazonov'', ''Sber'', 145464235, 1000). \newline Унификация неуспешна (несовпадение функторов) & Откат, переход к следующему предложению \\
+			\hline
+			129-145 & ... & Новое состояние резольвенты: Пустая \newline Достижение БЗ, завершение работы программы \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\chapter*{Лабораторная работа №14}
+
+\section*{Постановка задачи}
+
+Создать базу знаний: <<ПРЕДКИ>>, позволяющую наиболее эффективным способом (за меньшее количество шагов, что обеспечивается меньшим количеством предложений БЗ – правил), и используя разные варианты (примеры) одного вопроса, определить (указать: какой вопрос для какого варианта):
+
+\begin{enumerate}
+	\item По имени субъекта определить всех его бабушек (предки 2-го колена);
+	\item По имени субъекта определить всех его дедушек (предки 2-го колена);
+	\item По имени субъекта определить всех его бабушек и дедушек (предки 2-го колена);
+	\item По имени субъекта определить его бабушку по материнской линии (предки 2-го колена);
+	\item По имени субъекта определить его бабушку и дедушку по материнской линии (предки 2-го колена).
+\end{enumerate}
+
+Минимизировать количество правил и количество вариантов вопросов. Использовать конъюнктивные правила и простой вопрос.
+
+Для одного из вариантов ВОПРОСА и конкретной БЗ составить таблицу, отражающую конкретный порядок работы системы, с объяснениями:
+
+\begin{itemize}
+	\item очередная проблема на каждом шаге и метод ее решения,
+	\item каково новое текущее состояние резольвенты, как получено,
+	\item какие дальнейшие действия? (запускается ли алгоритм унификации? Каких термов? Почему этих?),
+	\item вывод по результатам очередного шага и дальнейшие действия.
+\end{itemize}
+
+Так как резольвента хранится в виде стека, то состояние резольвенты требуется отображать в столбик: вершина – сверху! Новый шаг надо начинать с нового состояния резольвенты!
+
+\newpage
+\section*{Решение}
+
+\begin{lstlisting}
+domains
+	name, sex = string
+	human = human(name, sex)
+
+predicates
+	is_parent(human, human)
+	is_grandparent(human, sex, name)
+
+clauses
+	is_grandparent(human(GName, GSex), PSex, Name) :- 
+			is_parent(human(GName, GSex), human(TmpName, PSex)), is_parent(human(TmpName, _), human(Name, _)).
+	
+	is_parent(human("Elena", f), human("Ivan", m)).
+	is_parent(human("Alexey", m), human("Ivan", m)).
+	is_parent(human("Vera", f), human("Elena", f)).
+	is_parent(human("Evgeny", m), human("Elena", f)).
+	is_parent(human("Nina", f), human("Alexey", m)).
+	is_parent(human("Anatoly", m), human("Alexey", m)).
+
+goal
+	is_grandparent(human(GName, f), _, "Ivan").
+	is_grandparent(human(GName, m), _, "Ivan").
+	is_grandparent(human(GName, _), _, "Ivan").
+	is_grandparent(human(GName, f), f, "Ivan").
+	is_grandparent(human(GName, _), f, "Ivan").
+\end{lstlisting}
+
+\section*{Порядок работы}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{5 cm}|p{8.5 cm}|p{4 cm}|}
+			\hline
+			№ шага & Состояние резольвенты & Для каких термов запускается алгоритм унификации: Т1=Т2 и каков результат (и подстановка) & Дальнейшие действия: прямой ход или откат \\
+			\hline 
+			1 & is\_parent(human(GName, GSex), human(''Ivan'', PSex)),\newline is\_parent(human(TmpName, PSex), human(Name, \_)).  & Запуск алгоритма унификации для is\_grandparent(human(GName, f), \_, ''Ivan'') и is\_grandparent(human(GName, GSex), PSex, Name).\newline Успешная унификация. Подстановка:\newline GSex = f,  GName = GName, Name = ''Ivan'' & Прямой ход, переход к следующему предложению \\
+			\hline 
+			2 & is\_parent(human(GName, GSex), human(''Ivan'', PSex)),\newline is\_parent(human(PName, PSex), human(Name, \_)). & Запуск алгоритма унификации для is\_parent(human(GrandPName, GSex), human(''Ivan'', PSex)) и is\_grandparent(human(GName, GSex), PSex, Name).\newline Унификация неуспешна. & Прямой ход, переход к следующему предложению  \\
+			\hline 
+			3 & is\_parent(human(GName, f), human(''Elena'', f))  & Запуск алгоритма унификации для is\_parent(human(GName, GSex), human(''Ivan'', PSex)) и is\_parent(human(''Elena'', f), human(''Ivan'', m)).\newline Успешная унификация. Подстановка:\newline GSex = f, Psex = f, GName = GName, TmpName = ''Elena'', Name = ''Ivan'' & Прямой ход, попытка унификации is\_parent(human( GName, f), human(''Elena'', f)) \\
+			\hline 
+			4 & is\_parent(human(GName, f), human(''Elena'', f)) & Запуск алгоритма унификации для is\_parent(human(GName, f), human(''Elena'', f)) и is\_grandparent(human(GName, GSex), PSex, Name).\newline Унификация неуспешна. & Прямой ход, переход к следующему предложению \\
+			\hline 
+			5-6 & ... & ... & ... \\
+			\hline 
+			7 & Пустая & Запуск алгоритма унификации для is\_parent(human(GName, f), human(''Elena'', f))
+			и is\_parent(human(''Vera'', f), human(''Elena'', f)).\newline Унификация успешна. Подстановка:\newline GSex = f, Psex = f, TmpName = ''Elena'', Name = ''Ivan'', GName = ''Vera''. & Получен результат (GName = ''Vera''). Откат (+ откат к следующему предложению относительно 3, т.к. БЗ закончилась) \\
+			\hline 
+			8 & is\_parent(human(GName, f), human(''Alexey'', m)) & Запуск алгоритма унификации для is\_parent(human(GName, GSex), human(''Ivan'', PSex)) и is\_parent(human(''Alexey'', m), human(''Ivan'', m)).\newline Успешная унификация. Подстановка:\newline GSex = f, GName = GName, Psex = m, TmpName = ''Alexey'', Name = ''Ivan'' & Прямой ход, попытка унификации is\_parent(human( GName, f), human(''Alexey'', m)) \\
+			\hline  
+		\end{tabular}
+	\end{center}
+\end{table} 
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{|p{1 cm}|p{5 cm}|p{8.5 cm}|p{4 cm}|}
+			\hline 
+			9 & is\_parent(human(GName, f), human(''Alexey'', m))  & Запуск алгоритма унификации для is\_parent(human(GName, f), human(''Alexey'', m))
+			и is\_grandparent(human(GName, GSex), PSex, Name).\newline Унификация неуспешна. &
+			Прямой ход, переход к следующему
+			предложению \\
+			\hline 
+			10-15 & ... & ... & ... \\
+			\hline 
+			16 &  Пустая  & 
+			Запуск алгоритма унификации для is\_parent(human(GName, f), human(''Alexey'', m))
+			и is\_parent(human(''Nina'', f), human(''Alexey'', m)).\newline Успешная унификация. Подстановка:\newline GSex = f, GName = ''Nina'', Psex = m, TmpName = ''Alexey'', Name = ''Ivan'' & 
+			Получен результат (GName = ''Nina''). Откат. \\
+			\hline 
+			17 &
+			is\_parent(human(GName, GSex), human(''Ivan'', PSex)),
+			is\_parent(human(TmpName, PSex), human(Name, \_)). &
+			Запуск алгоритма унификации для is\_parent(human(GName, f), human(''Alexey'', m))
+			и is\_parent(human(''Anatoly'', m), human(''Alexey'', m)).\newline Унификация неуспешна. &
+			Откат, следующее предложение
+			относительно 1 \\
+			\hline 
+			18-22 & ... & ... &  ... \\
+			\hline 
+			23 & is\_grandparent(human( GName, f), \_, ''Ivan''). &
+			Запуск алгоритма унификации для is\_grandparent(human(GName, f), \_, ''Ivan'').
+			и is\_parent(human(''Elena'', f), human(''Ivan'', m)).\newline Унификация неуспешна. & Прямой ход, переход к следующему
+			предложению  \\
+			\hline 
+			24-27 & ... & ... & ... \\
+			\hline 
+			28 & Пустая &
+			Запуск алгоритма унификации для is\_grandparent(human(GName, f), \_, ''Ivan'').
+			и is\_parent(human(''Anatoly'', m), human(''Alexey'', m)).\newline Унификация неуспешна. & Завершение работы. Найдено 2
+			ответа. \\
+			\hline 
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\end{document}

@@ -1,0 +1,5 @@
+select Towns.Name, Towns.Ruler, Towns.Population
+from Towns
+where exists (select Shops.Name, Shops.Merchandise
+			 from Shops join Towns on Shops.Id_town = Towns.Id
+			 where Shops.Merchandise = 'Книги')

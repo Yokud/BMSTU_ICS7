@@ -1,0 +1,4 @@
+select Shops.Name as Shop_Name, Shops.Merchandise, Shops.Can_invest, Towns.Name as Town_name
+into Shops_in_cities
+from Shops join Towns on Towns.Id = Shops.Id_town
+where Towns.Type = 'Город'

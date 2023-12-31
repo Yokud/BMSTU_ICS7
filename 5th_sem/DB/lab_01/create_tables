@@ -1,0 +1,69 @@
+drop table if exists Chain_stores;
+drop table if exists Shops;
+drop table if exists Merchants;
+drop table if exists Towns;
+
+
+create table if not exists Merchants(
+	Id integer unique,
+	Name nchar(32),
+	Gender nchar(10),
+	Race nchar(10),
+	Date_of_birth date
+);
+
+create table if not exists Shops(
+	Id integer unique,
+	Name nchar(32),
+	Merchandise nchar(32),
+	Can_invest bool,
+	Hours_start time,
+	Hours_end time,
+	Id_merchant integer,
+	Id_town integer
+);
+
+create table if not exists Towns(
+	Id integer unique,
+	Name nchar(32),
+	Ruler nchar(32),
+	Population integer,
+	Type nchar(10)
+);
+
+create table if not exists Chain_stores(
+	Id_merchant integer,
+	Id_town integer,
+	Total_equity integer
+);
+
+
+alter table Merchants add primary key(Id);
+alter table Merchants add constraint Name check (not null);
+alter table Merchants add constraint Gender check (not null);
+alter table Merchants add constraint Race check (not null);
+alter table Merchants add constraint Date_of_birth check (not null);
+
+alter table Towns add primary key(Id);
+alter table Towns add constraint Name check (not null);
+alter table Towns add constraint Ruler check (not null);
+alter table Towns add constraint Population check (Population > 0);
+alter table Towns add constraint Type check (not null);
+
+alter table Shops add primary key(Id);
+alter table Shops add constraint Name check (not null);
+alter table Shops add constraint Merchandie check (not null);
+alter table Shops add constraint Can_invest check (not null);
+alter table Shops add constraint Hours_start check (not null);
+alter table Shops add constraint Hours_end check (not null);
+alter table Shops add foreign key(Id_merchant) references Merchants(Id);
+alter table Shops add foreign key(Id_town) references Towns(Id);
+
+alter table Chain_stores add foreign key(Id_merchant) references Merchants(Id);
+alter table Chain_stores add foreign key(Id_town) references Towns(Id);
+alter table Chain_stores add constraint Total_equity check (Total_equity >= 0);
+
+copy Merchants from 'C:\PostgreSQL_data\merchants.csv' delimiter ',' CSV;
+copy Towns from 'C:\PostgreSQL_data\towns.csv' delimiter ',' CSV;
+copy Shops from 'C:\PostgreSQL_data\shops.csv' delimiter ',' CSV;
+copy Chain_stores from 'C:\PostgreSQL_data\chain_stores.csv' delimiter ',' CSV;

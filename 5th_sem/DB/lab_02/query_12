@@ -1,0 +1,6 @@
+select distinct Towns.Name as Town_name, Ruler, Towns.Population, Book_shops.Name as Book_shop_name
+from Towns join (select Shops.Id_town, Shops.Name, Merchandise
+				from Shops
+				group by Shops.Id_town, Shops.Name, Merchandise
+				having Merchandise = 'Книги') as Book_shops on Book_shops.Id_town = Towns.Id
+order by Population

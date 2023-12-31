@@ -1,0 +1,205 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{{imgs/}}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usepackage{indentfirst}
+\usepackage{eucal}
+\usepackage{enumitem}
+\frenchspacing
+
+\usepackage{indentfirst} % Красная строка
+
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\usepackage{amsmath}
+\usepackage{fixltx2e}
+\usepackage{caption}
+
+
+\definecolor{bluekeywords}{rgb}{0,0,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.64,0.08,0.08}
+\definecolor{xmlcomments}{rgb}{0.5,0.5,0.5}
+\definecolor{types}{rgb}{0.17,0.57,0.68}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+	captionpos=t,
+	numbers=left, %Nummerierung
+	numberstyle=\small, % kleine Zeilennummern
+	frame=single, % Oberhalb und unterhalb des Listings ist eine Linie
+	stepnumber=1,                   
+	numbersep=5pt,                
+	showspaces=false,
+	tabsize=2,
+	showtabs=false,
+	breaklines=true,
+	showstringspaces=false,
+	breakatwhitespace=true,
+	escapeinside={(*@}{@*)},
+	commentstyle=\color{greencomments},
+	morekeywords={partial, var, value, get, set},
+	keywordstyle=\color{bluekeywords},
+	stringstyle=\color{redstrings},
+	basicstyle=\ttfamily\small,
+}
+
+\usepackage[left=2cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+% Для измененных титулов глав:
+\usepackage{titlesec, blindtext, color} % подключаем нужные пакеты
+\definecolor{gray75}{gray}{0.75} % определяем цвет
+\newcommand{\hsp}{\hspace{20pt}} % длина линии в 20pt
+% titleformat определяет стиль
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+\usepackage{array}
+\newcommand{\head}[2]{\multicolumn{1}{>{\centering\arraybackslash}p{#1}}{#2}}
+
+% plot
+\usepackage{pgfplots}
+\usepackage{filecontents}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+
+\begin{document}
+%\def\chaptername{} % убирает "Глава"
+\thispagestyle{empty}
+\begin{titlepage}
+	\noindent \begin{minipage}{0.15\textwidth}
+		\includegraphics[width=\linewidth]{b_logo}
+	\end{minipage}
+	\noindent\begin{minipage}{0.9\textwidth}\centering
+		\textbf{Министерство науки и высшего образования Российской Федерации}\\
+		\textbf{Федеральное государственное бюджетное образовательное учреждение высшего образования}\\
+		\textbf{~~~«Московский государственный технический университет имени Н.Э.~Баумана}\\
+		\textbf{(национальный исследовательский университет)»}\\
+		\textbf{(МГТУ им. Н.Э.~Баумана)}
+	\end{minipage}
+	
+	\noindent\rule{18cm}{3pt}
+	\newline\newline
+	\noindent ФАКУЛЬТЕТ $\underline{\text{«Информатика и системы управления»}}$ \newline\newline
+	\noindent КАФЕДРА $\underline{\text{«Программное обеспечение ЭВМ и информационные технологии»}}$\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline\newline
+	
+	
+	\begin{center}
+		\noindent\begin{minipage}{1.3\textwidth}\centering
+			\Large\textbf{  Отчет по лабораторной работе №1}\newline
+			\textbf{по дисциплине \newline "Функциональное и логическое программирование"}\newline\newline
+		\end{minipage}
+	\end{center}
+	
+	\noindent\textbf{Тема} $\underline{\text{Списки в Lispe}}$\newline\newline
+	\noindent\textbf{Студент} $\underline{\text{Малышев И. А.}}$\newline\newline
+	\noindent\textbf{Группа} $\underline{\text{ИУ7-61Б}}$\newline\newline
+	\noindent\textbf{Оценка (баллы)} $\underline{\text{~~~~~~~~~~~~~~~~~~~~~~~~~~~}}$\newline\newline
+	\noindent\textbf{Преподаватель: } $\underline{\text{Толпинская Н. Б.}}$\newline\newline\newline
+	
+	\begin{center}
+		\vfill
+		Москва~---~\the\year
+		~г.
+	\end{center}
+\end{titlepage}
+
+
+\setcounter{page}{2}
+\chapter*{Теоретические вопросы}
+""\newline
+\textbf{1. Элементы языка: определение, синтаксис, представление в памяти}
+
+Элементами языка Lisp являются атомы и точечные пары (структуры). К атомам относятся:
+
+\begin{itemize}
+	\item символы -- набор литер (букв или цифр), начинающихся с буквы.
+	\item специальные символы: $\{T, Nil\}$. Используются для обозначения логических констант.
+	\item самоопределимые атомы -- натуральные, дробные, вещественные числа, строки (последовательность символов, заключенных в двойные апострофы)
+\end{itemize}
+
+
+Точечные пары ::= (<атом>, <атом>) |
+
+(<атом>, <точечная пара>) |
+
+(<точечная пара>, <атом>) |
+
+(<точечная пара>, <точечная пара>)
+
+
+""\newline
+\indent Список ::= <пустой список> | <непустой список>, где
+
+<пустой список> ::= () | Nil,
+
+<непустой список> ::= (<первый элемент>, <хвост>),
+
+<первый элемент> ::= <S-выражение>,
+
+<хвост> ::= <список>""\newline
+
+\indent \textbf{Список} -- частный случай S-выражения. Любая структура (точечная пара или список) заключаются в круглые скобки:
+
+\begin{itemize}
+	\item (A . B) -- точечная пара;
+	\item $(A)$ -- список из одного элемента;
+	\item $Nil$ или $()$ -- пустой список;
+	\item (A . (B . (C . (D ()))))) или (A B C D) -- непустой список;
+	\item Элементы списка могут являться списками: $((A)(B)(CD))$
+\end{itemize}
+
+Любая непустая структура в Lisp, в памяти представленна списковой ячейкой, хранящей два указателя: на голову и хвост.
+
+Атомы в памяти представляются в виде пяти рядом расположенных указателей: 
+
+\begin{enumerate}
+	\item Name -- имя атома;
+	\item Value -- значение атома;
+	\item Func -- функция, на которую указывает атом;
+	\item Property -- свойство;
+	\item Package -- пакет.
+\end{enumerate}
+
+Атом может указывать одновременно и на значение, и на функцию. В зависимости от контекста воспринимается либо как значение, либо как функция.
+
+""\newline
+\textbf{2. Особенности языка Lisp. Структура программы. Символ апостроф.}
+
+Особенности языка:
+\begin{itemize}
+	\item любая программа, написанная на языке Lisp, может восприниматься и как программа, и как данные;
+	\item отдельные функции м. б. значениями в зависимости от контекста;
+	\item автоматизированное динамическое распределение памяти.
+\end{itemize}
+
+Структура программы представляет собой агрегирование функций. Сама программа представляет собой функцию, некоторые аргументы которой можно воспринимать как функции.
+
+Символ \textquotesingle (апостроф) эквивалентен функции quote – он блокирует вычисление выражения. Таким образом, выражение воспринимается интерпретатором как данные.
+
+""\newline
+\textbf{3. Базис языка Lisp. Ядро языка.}
+
+Базис языка представлен:
+\begin{itemize}
+	\item структурами и атомами;
+	\item функциями;
+\end{itemize}
+
+Функция -- правило, по которому каждому значению одного или нескольких аргументов ставится в соответствие конкретное значение результата.
+
+Функции, входящие в базис языка: atom, eq, cons, car, cdr, cond, quote, lambda, eval, apply, funcall.
+
+Ядром языка называется базис языка + функции стандартной библиотеки -- это часто используемые функции, созданые на основе базиса языка.
+
+""\newline
+\chapter*{Практические задания}
+
+Решение заданий оформлено на листах бумаги, прилагающиеся к отчету.
+
+\end{document}

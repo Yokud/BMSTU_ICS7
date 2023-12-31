@@ -1,0 +1,1 @@
+a shared\file_00.txt shared\file_01.txt out.txt

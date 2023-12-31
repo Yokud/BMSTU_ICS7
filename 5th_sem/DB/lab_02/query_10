@@ -1,0 +1,7 @@
+select Towns.Name, 
+		case
+			when Total_equity < 15000 then 'Малоимущее поселение'
+			when Total_equity < 75000 then 'Поселение среднего достатка'
+			else 'Богатое поселение'
+		end as Status
+from Towns join Chain_stores on Towns.Id = Chain_stores.Id_town

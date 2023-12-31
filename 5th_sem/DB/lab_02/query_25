@@ -1,0 +1,5 @@
+select Name, Ruler
+from (
+	select Name, Ruler, row_number() over (partition by Name, Ruler) as rn
+	from Towns) as t
+where rn = 1

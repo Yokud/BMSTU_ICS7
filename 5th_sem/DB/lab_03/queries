@@ -1,0 +1,235 @@
+-- 1. Скалярная функция
+drop function if exists AvgPopulationDiff(popul integer);
+
+create or replace function AvgPopulationDiff(popul integer) returns real as $$
+begin
+	return (select popul - avg(Population) from Towns);
+end;
+$$ language plpgsql;
+
+select Name, Population, AvgPopulationDiff(Population)
+from Towns;
+
+
+-- 2. Подставляемая табличная функция
+drop function if exists Shops_n_Merchants();
+
+create or replace function Shops_n_Merchants() returns table(shop_name nchar, shop_merch nchar, merchnt_name nchar, merchnt_gender nchar) as $$
+begin
+	return query (select Shops.Name, Shops.Merchandise, Merchants.Name, Merchants.Gender
+	from Merchants join Shops on Merchants.Id = Shops.Id_merchant);
+end;
+$$ language plpgsql;
+
+select *
+from Shops_n_Merchants();
+
+
+-- 3. Многооператорная табличная функция
+drop function if exists BookShops(town_id integer);
+
+create or replace function BookShops(town_id integer) returns table(shop_name nchar, can_invest bool, hours_start time, hours_end time, town_name nchar) as $$
+begin
+	drop table if exists tbl;
+	create temp table tbl (shop_name nchar, can_invest bool, hours_start time, hours_end time, town_name nchar);
+	
+	insert into tbl
+	select Shops.Name, Shops.Can_invest, Shops.Hours_start, Shops.Hours_end, Towns.Name
+	from Towns join Shops on Towns.Id = Shops.id_town
+	where Towns.Id = town_id;
+	
+	return query select * from tbl;
+end;
+$$ language plpgsql;
+
+select *
+from BookShops(300);
+
+
+-- 4. Рекурсивная функция
+drop function if exists VassalsLevel();
+drop table Vassals;
+
+create temp table Vassals (Id integer, Name nchar(50), Id_vassal integer);
+
+insert into Vassals
+select Id, Ruler, 3571 * Id % 1001
+from Towns;
+
+update Vassals
+set Id_vassal = 0
+where Id in (select Id
+		   from Towns
+		   where Name = 'Солитьюд' or Name = 'Виндхельм');
+
+create or replace function VassalsLevel() returns table(Id integer, Name nchar, Id_vassal integer, Level integer) as $$
+begin
+	return query 
+		with recursive rec(Id, Name, Id_vassal, Level) as (
+			select Vassals.Id, Vassals.Name, Vassals.Id_vassal, 0 as Level
+			from Vassals
+			where Vassals.Id_vassal = 0
+
+			union all
+
+			select v.Id, v.Name, v.Id_vassal, vl.Level + 1
+			from Vassals as v join rec as vl on v.Id_vassal = vl.Id
+		)
+		select * from rec;
+end;
+$$ language plpgsql;
+
+select *
+from VassalsLevel()
+
+
+-- 5. Хранимая процедура с параметрами
+drop procedure if exists ChangeRuler(town_id int, ruler_name nchar(50));
+
+create or replace procedure ChangeRuler(town_id int, ruler_name nchar(50)) as $$
+begin
+	update Towns
+	set Ruler = ruler_name
+	where Id = town_id;
+end;
+$$ language plpgsql;
+
+call ChangeRuler(555, 'Пятёрка');
+
+select *
+from Towns
+where Id = 555;
+
+
+-- 6. Рекурсивная процедура с ОТВ
+drop procedure if exists VassalsLevel();
+drop table Vassals;
+drop table VassalLevels;
+
+create temp table Vassals (Id integer, Name nchar(50), Id_vassal integer);
+
+insert into Vassals
+select Id, Ruler, 3571 * Id % 1001
+from Towns;
+
+update Vassals
+set Id_vassal = 0
+where Id in (select Id
+		   from Towns
+		   where Name = 'Солитьюд' or Name = 'Виндхельм');
+		   
+create temp table VassalLevels (Id integer, Name nchar(50), Level integer);
+
+create or replace procedure VassalsLevel() as $$
+begin
+		with recursive rec(Id, Name, Id_vassal, Level) as (
+			select Vassals.Id, Vassals.Name, Vassals.Id_vassal, 0 as Level
+			from Vassals
+			where Vassals.Id_vassal = 0
+
+			union all
+
+			select v.Id, v.Name, v.Id_vassal, vl.Level + 1
+			from Vassals as v join rec as vl on v.Id_vassal = vl.Id
+		)
+		
+		insert into VassalLevels
+		select Id, Name, Level from rec;
+end;
+$$ language plpgsql;
+
+call VassalsLevel();
+
+select *
+from VassalLevels
+
+
+-- 7. Процедура с курсором
+drop procedure GetCityShops();
+
+create or replace procedure GetCityShops() as $$
+declare
+	shop_name nchar(50);
+	shop_cursor cursor for select Shops.Name
+					from Shops join Towns on Shops.Id_town = Towns.Id
+					where Type = 'Город';
+begin
+	open shop_cursor;
+	loop
+		fetch shop_cursor into shop_name;
+		exit when not found;
+		raise notice 'Название лавки: %', shop_name;
+	end loop;
+	close shop_cursor;
+end;
+$$ language plpgsql;
+
+call GetCityShops();
+
+
+-- 8. Процедура с доступом к метаданным
+drop procedure getDbMeta(dbname text);
+
+create or replace procedure getDbMeta(dbname text) as $$
+declare
+    dbid int;
+begin
+    select pg_database.oid
+	from pg_database
+	where pg_database.datname = dbname
+    into dbid;
+	
+    raise notice 'DB: %, ID: %', dbname, dbid;
+end;
+$$ language PLPGSQL;
+
+call getDbMeta('skyrims_merchants');
+
+
+-- 9. Триггер After
+drop trigger TownInsertTrigger on Towns;
+drop function TownInsertInfo();
+
+create or replace function TownInsertInfo() returns trigger as $$
+begin
+	raise notice 'Новое поселение было добавлено';
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create trigger TownInsertTrigger 
+after insert
+on Towns
+	for each row
+	execute procedure TownInsertInfo();
+	
+insert into Towns
+values (5555, 'Test', 'Test', 12131431, 'Деревня');
+
+
+-- 10. Триггер Instead of
+drop trigger TownInsertTrigger on towns_view;
+drop function TownInsertInfo();
+drop view towns_view;
+
+create or replace function TownInsertInfo() returns trigger as $$
+begin
+	raise notice 'Новое поселение не будет добавлено';
+	
+	return new;
+end;
+$$ language plpgsql;
+
+create or replace view towns_view as
+select *
+from Towns;
+
+create trigger TownInsertTrigger 
+instead of insert
+on towns_view
+	for each row
+	execute procedure TownInsertInfo();
+	
+insert into towns_view
+values (6666, 'Test', 'Test', 12131431, 'Деревня');

@@ -1,0 +1,16 @@
+Red wine
+Vines Comp.
+160
+200
+Grape
+Grape Inc.
+150
+60
+Apple
+Apple Inc.
+150
+50
+Pineapple
+Pineapple Inc.
+120
+200

@@ -1,0 +1,348 @@
+﻿<Window x:Class="COCOMO_var1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:COCOMO_var1" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+		mc:Ignorable="d"
+        Title="MainWindow" Height="575" Width="1300">
+
+	<Grid x:Name="BasicGrid" Margin="20 10 20 10">
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="300*" />
+			<ColumnDefinition Width="20*" />
+			<ColumnDefinition Width="600*" />
+			<ColumnDefinition Width="20*" />
+			<ColumnDefinition Width="300*" />
+		</Grid.ColumnDefinitions>
+
+		<Grid x:Name="Attributes">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="4*"/>
+				<RowDefinition Height="5*"/>
+				<RowDefinition Height="3*"/>
+				<RowDefinition Height="1.4*"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+
+			<GroupBox Header="Атрибуты программного продукта" Grid.Column="0" Grid.Row="0" >
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="50"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">RELY (требуемая надежность)</TextBlock>
+					<TextBox x:Name="RELY" Grid.Row="0" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">DATA (размер базы данных)</TextBlock>
+					<TextBox x:Name="DATA" Grid.Row="1" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">CPLX (сложность продукта)</TextBlock>
+					<TextBox x:Name="CPLX" Grid.Row="2" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+				</Grid>
+			</GroupBox>
+
+			<GroupBox Header="Атрибуты компьютера" Grid.Column="0" Grid.Row="1">
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="50"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">TIME (огр. времени выполнения)</TextBlock>
+					<TextBox x:Name="TIME" Grid.Row="0" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">STOR (огр. объема осн. памяти)</TextBlock>
+					<TextBox x:Name="STOR" Grid.Row="1" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">VIRT (изменивость ВМ)</TextBlock>
+					<TextBox x:Name="VIRT" Grid.Row="2" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="3" Grid.Column="0">TURN (время реации компьютера)</TextBlock>
+					<TextBox x:Name="TURN" Grid.Row="3" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+				</Grid>
+			</GroupBox>
+
+			<GroupBox Header="Атрибуты персонала" Grid.Column="0" Grid.Row="2">
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="50"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">ACAP (способности аналитика)</TextBlock>
+					<TextBox x:Name="ACAP" Grid.Row="0" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">AEXP (знание приложений)</TextBlock>
+					<TextBox x:Name="AEXP" Grid.Row="1" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">PCAP (способности программиста)</TextBlock>
+                    <TextBox x:Name="PCAP" Grid.Row="2" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">1</TextBox>
+
+					<TextBlock Grid.Row="3" Grid.Column="0">VEXP (знание ВМ)</TextBlock>
+					<TextBox x:Name="VEXP" Grid.Row="3" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+					<TextBlock Grid.Row="4" Grid.Column="0">LEXP (знание ЯП)</TextBlock>
+					<TextBox x:Name="LEXP" Grid.Row="4" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">1</TextBox>
+
+				</Grid>
+			</GroupBox>
+
+			<GroupBox Header="Атрибуты проекта" Grid.Column="0" Grid.Row="3">
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="50"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">MODP (исп. современных методов)</TextBlock>
+					<TextBox x:Name="MODP" Grid.Row="0" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">2</TextBox>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">TOOL (исп. программных инструментов)</TextBlock>
+                    <TextBox x:Name="TOOL" Grid.Row="1" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">1</TextBox>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">SCED (требуемые сроки разработки)</TextBlock>
+					<TextBox x:Name="SCED" Grid.Row="2" Grid.Column="2" PreviewKeyUp="TextBox_PreviewKeyDown">0</TextBox>
+
+				</Grid>
+			</GroupBox>
+
+			<GroupBox Header="Размер" Grid.Column="0" Grid.Row="4">
+				<Grid Grid.Row="4" Grid.Column="0" Margin="1">
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="50"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">KLOC</TextBlock>
+					<TextBox x:Name="KLOC" Grid.Row="0" Grid.Column="2">25</TextBox>
+
+				</Grid>
+			</GroupBox>
+
+			<Button Margin="0 5 0 0" Grid.Row="5" Grid.Column="0" Click="Button_Click" Content="Оценить" Width="Auto" />
+		</Grid>
+
+		<Grid x:Name="Results" Grid.Column="2" Grid.Row="0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+
+			<GroupBox Header="Распределение работ и времени по стадиям жизненного цикла" Grid.Column="0" Grid.Row="0" >
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition Width="3*"/>
+						<ColumnDefinition Width="10*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="10*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="10*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="10*"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">Вид деятельности</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="2">Трудозатраты(%)</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="4">Значение</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="6">Время(%)</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="8">Значение</TextBlock>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">Планирование и определение требований</TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">(+8)</TextBlock>
+					<TextBlock x:Name="LiCyPlannig" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center">(+36)</TextBlock>
+					<TextBlock x:Name="LiCyPlannigTime" Grid.Row="1" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">Проектирование продукта</TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center">18</TextBlock>
+					<TextBlock x:Name="LiCyProjecting" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="6" HorizontalAlignment="Center">36</TextBlock>
+					<TextBlock x:Name="LiCyProjectingTime" Grid.Row="2" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="3" Grid.Column="0">Детальное проектирование</TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center">25</TextBlock>
+					<TextBlock x:Name="LiCyDetailedProjecting" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="6" HorizontalAlignment="Center">18</TextBlock>
+					<TextBlock x:Name="LiCyDetailedProjectingTime" Grid.Row="3" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="4" Grid.Column="0">Кодирование и тестирование отдельных модулей</TextBlock>
+					<TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center">26</TextBlock>
+					<TextBlock x:Name="LiCyCoding" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="4" Grid.Column="6" HorizontalAlignment="Center">18</TextBlock>
+					<TextBlock x:Name="LiCyCodingTime" Grid.Row="4" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="5" Grid.Column="0">Интеграция и тестирование</TextBlock>
+					<TextBlock Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center">31</TextBlock>
+					<TextBlock x:Name="LiCyIntegration" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="5" Grid.Column="6" HorizontalAlignment="Center">28</TextBlock>
+					<TextBlock x:Name="LiCyIntegrationTime" Grid.Row="5" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="6" Grid.Column="0">Итого</TextBlock>
+					<TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center">100</TextBlock>
+					<TextBlock x:Name="LiCyTotal" Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center">100</TextBlock>
+					<TextBlock x:Name="LiCyTotalTime" Grid.Row="6" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="7" Grid.Column="0">Итого + планирование</TextBlock>
+					<TextBlock Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center">108</TextBlock>
+					<TextBlock x:Name="LiCyAll" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock Grid.Row="7" Grid.Column="6" HorizontalAlignment="Center">136</TextBlock>
+					<TextBlock x:Name="LiCyAllTime" Grid.Row="7" Grid.Column="8" HorizontalAlignment="Center"></TextBlock>
+				</Grid>
+			</GroupBox>
+
+			<GroupBox Header="Декомпозиция работ по созданию ПО" Grid.Column="0" Grid.Row="1" >
+				<Grid Margin="1 5">
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" MinWidth="45" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="10*"/>
+						<ColumnDefinition />
+						<ColumnDefinition Width="10*"/>
+						<ColumnDefinition />
+						<ColumnDefinition Width="10*"/>
+					</Grid.ColumnDefinitions>
+
+					<TextBlock Grid.Row="0" Grid.Column="0">Вид деятельности</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center">Бюджет (%)</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center">Чел.-Месяцы</TextBlock>
+					<TextBlock Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center">Затраты(тыс)</TextBlock>
+
+					<TextBlock Grid.Row="1" Grid.Column="0">Анализ требований</TextBlock>
+					<TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center">4</TextBlock>
+					<TextBlock x:Name="DecAnalysisWork" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecAnalysisMoney" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="2" Grid.Column="0">Проектирование продукта</TextBlock>
+					<TextBlock Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center">12</TextBlock>
+					<TextBlock x:Name="DecProjectingWork" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecProjectingMoney" Grid.Row="2" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="3" Grid.Column="0">Программирование</TextBlock>
+					<TextBlock Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center">44</TextBlock>
+					<TextBlock x:Name="DecProgrammingWork" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecProgrammingMoney" Grid.Row="3" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="4" Grid.Column="0">Тестирование</TextBlock>
+					<TextBlock Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center">6</TextBlock>
+					<TextBlock x:Name="DecTestingWork" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecTestingMoney" Grid.Row="4" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="5" Grid.Column="0">Верификация и аттестация</TextBlock>
+					<TextBlock Grid.Row="5" Grid.Column="2" HorizontalAlignment="Center">14</TextBlock>
+					<TextBlock x:Name="DecVerificationWork" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecVerificationMoney" Grid.Row="5" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="6" Grid.Column="0">Канцелярия проекта</TextBlock>
+					<TextBlock Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center">7</TextBlock>
+					<TextBlock x:Name="DecChancelleryWork" Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecChancelleryMoney" Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="7" Grid.Column="0">Управление конфигурацией и QA</TextBlock>
+					<TextBlock Grid.Row="7" Grid.Column="2" HorizontalAlignment="Center">7</TextBlock>
+					<TextBlock x:Name="DecQaWork" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecQaMoney" Grid.Row="7" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+					<TextBlock Grid.Row="8" Grid.Column="0">Создание руководств</TextBlock>
+					<TextBlock Grid.Row="8" Grid.Column="2" HorizontalAlignment="Center">6</TextBlock>
+					<TextBlock x:Name="DecManualWork" Grid.Row="8" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecManualMoney" Grid.Row="8" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+
+					<TextBlock Grid.Row="9" Grid.Column="0">Итого</TextBlock>
+					<TextBlock Grid.Row="9" Grid.Column="2" HorizontalAlignment="Center">100</TextBlock>
+					<TextBlock x:Name="DecTotalWork" Grid.Row="9" Grid.Column="4" HorizontalAlignment="Center"></TextBlock>
+					<TextBlock x:Name="DecTotalMoney" Grid.Row="9" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+
+				</Grid>
+			</GroupBox>
+
+		</Grid>
+
+		<Grid Margin="1 5" Grid.Column="4">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="20*"/>
+				<RowDefinition Height="1*"/>
+			</Grid.RowDefinitions>
+
+			<lvc:CartesianChart  Name ="Workres"  Grid.Column="0" LegendLocation="Left">
+				<lvc:CartesianChart.AxisY>
+					<lvc:Axis Title="Сотрудники"></lvc:Axis>
+				</lvc:CartesianChart.AxisY>
+				<lvc:CartesianChart.AxisX>
+					<lvc:Axis Title="Этапы"></lvc:Axis>
+				</lvc:CartesianChart.AxisX>
+			</lvc:CartesianChart>
+
+			<Button Grid.Row="1" Content="Вывести графики" Click="ButtonClicked" Height="25" Name="button1"  Width="100" HorizontalAlignment="Right"/>
+			
+		</Grid>
+
+
+	</Grid>
+
+</Window>

@@ -1,0 +1,12 @@
+select distinct Merchants.Name, 
+	(select count(Id_merchant)
+	 from Chain_stores
+	 where Id_merchant = Merchants.Id) as Number_of_shops,
+	case (select count(Id_merchant)
+	 from Chain_stores
+	 where Id_merchant = Merchants.Id)
+		when 0 then 'Не имеет лавок'
+		when 1 then 'Имеет одну лавку'
+		else 'Имеет более одной лавки'
+	end as Status
+from Merchants join Shops on Merchants.Id = Shops.Id_merchant

@@ -1,0 +1,3 @@
+select distinct Merchants.Name, Shops.Name, Towns.Name
+from (Merchants join Shops on Merchants.Id = Shops.Id_merchant) join Towns on Towns.Id = Shops.Id_town
+where Shops.Name like '%мёд%'

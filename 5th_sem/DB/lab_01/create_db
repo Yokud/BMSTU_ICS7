@@ -1,0 +1,3 @@
+create database Skyrims_merchants
+	with
+	encoding "utf8";

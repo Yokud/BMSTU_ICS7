@@ -1,0 +1,4 @@
+select distinct Merchants.Name, Merchants.Race, Merchants.Date_of_birth
+from Merchants
+where Date_of_birth between '01.01.150' and '31.12.160'
+order by Date_of_birth

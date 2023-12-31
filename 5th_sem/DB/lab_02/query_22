@@ -1,0 +1,8 @@
+with Merch_groups (Merch, Num_merch_shops) as (
+	select Merchandise, count(*) as cnt
+	from Shops
+	where Can_invest = true
+	group by Merchandise
+)
+select avg(Num_merch_shops) as "Среднее кол-во лавок с видом товаров"
+from Merch_groups

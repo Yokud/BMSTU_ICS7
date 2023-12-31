@@ -1,0 +1,6 @@
+insert into Shops_in_cities
+select Name, Merchandise, Can_invest, (select max(Name)
+										  from Towns
+										  where Population > 1000) as TN
+from Shops
+where hours_start > '08:00' and hours_end < '22:00'

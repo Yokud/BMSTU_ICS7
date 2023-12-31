@@ -1,0 +1,5 @@
+select Name, Ruler, Population, Type,
+	min(Population) over (partition by Ruler order by Name) as Min_population,
+	max(Population) over (partition by Ruler order by Name) as Max_population,
+	avg(Population) over (partition by Ruler order by Name) as Avg_population
+from Towns
