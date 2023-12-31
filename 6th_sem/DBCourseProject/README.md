@@ -15,10 +15,10 @@ GoodsForecast.Planning |+|-|-
 Проект имеет минимальный функционал для прогнозирования цен на товары, разграничение прав доступа для разных типов пользователей и распространяется бесплатно с открытым исходным кодом
 
 ## Use-Case - диаграмма
-![](/docs/inc/img/use_case.drawio.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/use_case.drawio.png)
 
 ## ER-диаграмма сущностей
-![](/docs/inc/img/ER.drawio.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/ER.drawio.png)
 
 ## Архитектурные характеристики
 Архитектура проекта основана на паттерне MVVM
@@ -28,27 +28,27 @@ GoodsForecast.Planning |+|-|-
 * Технологический стек: C# 10, PostgreSQL, NpgSQL, Entity Framework Core 6, OxyPlot
 
 ## Диаграмма компонентов
-![](/docs/inc/img/HighComponents.drawio.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/HighComponents.drawio.png)
 
 ## UML диаграмма классов для компонента доступа к данным и компонента с бизнес-логикой
-![](/docs/inc/img/DABL.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/DABL.png)
 
 ## UML диаграммы «модельных» классов сущностей
 
 ### Сущности базы данных
-![](/docs/inc/img/ModelClassesDB.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/ModelClassesDB.png)
 
 ### Сущности системы
-![](/docs/inc/img/SysEntities.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/SysEntities.png)
 
 ### Транспортные сущности
-![](/docs/inc/img/TranspEntities.png)
+![](/6th_sem/DBCourseProject/docs/inc/img/TranspEntities.png)
 
 ## UML-диаграмма классов для компонента/модуля, связывающего GUI и бизнес-логику и компонента/модуля GUI
-![](/docs/inc/img/views.jpg)
+![](/6th_sem/DBCourseProject/docs/inc/img/views.jpg)
 
 ## UML-диаграмма классов для технологического UI ко всем функциям системы (консольное приложение)
-![](/docs/inc/img/technic_ui.jpg)
+![](/6th_sem/DBCourseProject/docs/inc/img/technic_ui.jpg)
 
 ## UML-диаграмма всего проекта
-![](/docs/inc/img/AllDiagram.jpg)
+![](/6th_sem/DBCourseProject/docs/inc/img/AllDiagram.jpg)
