@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="HeightMapLib.HeightMap">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAAAFAAAAAQAeEMCAEBBAAAAAAAABAQAAAAIAAA=</HashCode>
+      <FileName>Heightmap.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="expresion" />
+      <Property Name="LandGenerator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="HeightMapLib.PerlinNoise" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAABAQAAAQkMBAEADAABEAAAABAAAAAAAAgA=</HashCode>
+      <FileName>Heightmap.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="HeightMapLib.ILandGenerator">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Heightmap.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HeightMapLib.INoisable">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Heightmap.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="HeightMapLib.NoiseExpresion" Collapsed="true">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Heightmap.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

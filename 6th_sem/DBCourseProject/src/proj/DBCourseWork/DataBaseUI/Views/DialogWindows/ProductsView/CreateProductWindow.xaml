@@ -1,0 +1,35 @@
+﻿<Window x:Class="DataBaseUI.Views.DialogWindows.CreateProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBaseUI.Views.DialogWindows"
+        mc:Ignorable="d"
+        Title="Создать новый продукт" Height="215" Width="300" ResizeMode="NoResize">
+    <StackPanel Background="DimGray">
+        <DockPanel>
+            <TextBlock Text="Название:" Margin="3"/>
+            <TextBox x:Name="NewProductName" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Тип продукта:" Margin="3"/>
+            <TextBox x:Name="NewProductType" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <Separator/>
+        <TextBlock Text="Параметры цены" FontSize="13"/>
+        <DockPanel>
+            <TextBlock Text="Год:" Margin="3"/>
+            <TextBox x:Name="NewCostYear" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Месяц:" Margin="3"/>
+            <TextBox x:Name="NewCostMonth" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Цена:" Margin="3"/>
+            <TextBox x:Name="NewCostValue" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        
+        <Button Content="Создать" Margin="50, 5, 50, 5" Click="Button_Click"/>
+    </StackPanel>
+</Window>

@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="DataBaseUI.Views.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewmodels="clr-namespace:DataBaseUI.ViewModels"
+             xmlns:views="clr-namespace:DataBaseUI.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="0.7*"/>
+        </Grid.RowDefinitions>
+
+        <ListBox Grid.Column="0" Grid.RowSpan="2" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Margin="25" BorderBrush="Black" BorderThickness="2" Background="LightGray">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=ProductType, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding Path=Cost, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedProduct}" Margin="25">
+            <TextBlock Text="Выбранный товар" FontSize="20" Margin="0, 0, 0, 15"/>
+            <DockPanel>
+                <TextBlock Text="Название:" FontSize="15" Margin="0, 5, 5, 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" TextWrapping="Wrap" Margin="5, 0, 5, 0" FontSize="16"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Тип товара:" FontSize="15" Margin="0, 5, 5, 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding ProductType, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="5, 0, 5, 0" FontSize="16"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Стоимость:" FontSize="15" Margin="0, 5, 5, 0" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="5, 0, 5, 0" FontSize="16"/>
+            </DockPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button HorizontalContentAlignment="Center" Grid.Column="0" Grid.Row="0" Margin="15" Command="{Binding Path=AddCommand}" CommandParameter="{Binding }" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                <Button.Content>
+                    <TextBlock Text="Добавить существующий продукт в магазин" TextWrapping="Wrap"/>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="0" Margin="15" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding Path=SelectedProduct}" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                <Button.Content>
+                    <TextBlock Text="Удалить продукт из магазина" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </Button.Content>
+            </Button>
+            <Button Content="Создать новый продукт" Grid.Row="1" Grid.Column="0" Margin="15" Command="{Binding Path=CreateCommand}" CommandParameter="{Binding }" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+            <Button Content="Обновить продукт" Grid.Row="1" Grid.Column="1" Margin="15" Command="{Binding Path=UpdateCommand}" CommandParameter="{Binding Path=SelectedProduct}" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+        </Grid>
+    </Grid>
+</UserControl>

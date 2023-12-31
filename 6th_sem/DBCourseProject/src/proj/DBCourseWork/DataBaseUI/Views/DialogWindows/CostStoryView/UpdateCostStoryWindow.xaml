@@ -1,0 +1,25 @@
+﻿<Window x:Class="DataBaseUI.Views.DialogWindows.CostStoryView.UpdateCostStoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBaseUI.Views.DialogWindows.CostStoryView"
+        mc:Ignorable="d"
+        Title="Изменить данные о цене" Height="150" Width="200" ResizeMode="NoResize">
+    <StackPanel Background="DimGray">
+        <DockPanel>
+            <TextBlock Text="Год:" Margin="3"/>
+            <TextBox x:Name="NewCostYear" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Месяц:" Margin="3"/>
+            <TextBox x:Name="NewCostMonth" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Цена:" Margin="3"/>
+            <TextBox x:Name="NewCostValue" Margin="3" Background="LightGray"/>
+        </DockPanel>
+
+        <Button Content="Обновить" Margin="50, 5, 50, 5" Click="Button_Click"/>
+    </StackPanel>
+</Window>

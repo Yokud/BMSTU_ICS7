@@ -1,0 +1,27 @@
+﻿<Window x:Class="UI.GenMapWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Параметры генерации" Height="280.583" Width="300">
+    <Grid>
+        <Button Content="Создать" HorizontalAlignment="Left" Margin="110,220,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBox Name="Width_textbox" HorizontalAlignment="Left" Height="23" Margin="150,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Height_textbox"  HorizontalAlignment="Left" Height="23" Margin="150,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Scale_textbox" HorizontalAlignment="Left" Height="23" Margin="150,66,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Octs_textbox" HorizontalAlignment="Left" Height="23" Margin="150,94,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Lacun_textbox" HorizontalAlignment="Left" Height="23" Margin="150,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Pers_textbox" HorizontalAlignment="Left" Height="23" Margin="150,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="Seed_textbox" HorizontalAlignment="Left" Height="23" Margin="150,178,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Ширина карты высот:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Высота карты высот:" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top"/>
+        <Label Content="Масштаб карты высот:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="Количество октав:" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top"/>
+        <Label Content="Лакунарность:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+        <Label Content="Стойкость:" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ключ генерации:" HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

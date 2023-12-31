@@ -1,0 +1,21 @@
+﻿<Window x:Class="DataBaseUI.Views.DialogWindows.SaleReceiptsView.AddSaleReceiptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBaseUI.Views.DialogWindows.SaleReceiptsView"
+        mc:Ignorable="d"
+        Title="Добавить чек" Height="120" Width="250" ResizeMode="NoResize">
+    <StackPanel Background="DimGray">
+        <DockPanel>
+            <TextBlock Text="ФИО:" Margin="3"/>
+            <TextBox x:Name="FIO" Margin="3" Background="LightGray"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Дата покупки:" Margin="3"/>
+            <TextBox x:Name="DateOfPurchase" Margin="3" Background="LightGray"/>
+        </DockPanel>
+
+        <Button Content="Добавить" Click="Button_Click"  Margin="50, 5, 50, 5"/>
+    </StackPanel>
+</Window>

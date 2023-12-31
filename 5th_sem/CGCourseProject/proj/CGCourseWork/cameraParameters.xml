@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<framesCount>24</framesCount>
+<cameraResolution>
+  1280 720</cameraResolution>
+<cameraMatrix type_id="opencv-matrix">
+  <rows>3</rows>
+  <cols>3</cols>
+  <dt>d</dt>
+  <data>
+    640. 0. 320.
+    0. 640. 240.
+	0. 0. 1.</data></cameraMatrix>
+<dist_coeffs type_id="opencv-matrix">
+  <rows>1</rows>
+  <cols>5</cols>
+  <dt>d</dt>
+  <data>
+    0. 0. 0. 0.
+    0.</data></dist_coeffs>
+</opencv_storage>

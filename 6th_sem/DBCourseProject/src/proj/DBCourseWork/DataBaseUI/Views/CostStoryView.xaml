@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="DataBaseUI.Views.CostStoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataBaseUI.Views"
+             xmlns:oxyplot="http://oxyplot.org/wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid IsEnabled="{Binding IsAnalyst}" Visibility="{Binding IsAnalyst, Converter={StaticResource BoolToVis}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Margin="15" AutoGenerateColumns="False" ItemsSource="{Binding ProductCostStory}" SelectedItem="{Binding SelectedCostStory}" Grid.RowSpan="2" Background="LightGray" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Год" FontSize="15" Binding="{Binding Path=Year, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Месяц" FontSize="13" Binding="{Binding Path=Month, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Цена" FontSize="14" Binding="{Binding Path=Cost, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Добавить новую цену" Margin="7.5" Command="{Binding AddCommand}" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+            <Button Content="Удалить цену из истории" Margin="7.5" Grid.Column="1" Command="{Binding DeleteCommand}" CommandParameter="{Binding SelectedCostStory}" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+            <Button Content="Изменить данные о цене" Grid.Row="1" Grid.ColumnSpan="2" Margin="90, 7.5, 90, 7.5" Command="{Binding UpdateCommand}" CommandParameter="{Binding SelectedCostStory}" IsEnabled="{Binding IsAdmin}" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*"/>
+                <RowDefinition Height="0.18*"/>
+                <RowDefinition Height="0.07*"/>
+            </Grid.RowDefinitions>
+
+            <oxyplot:PlotView Model="{Binding TrendLinePlot, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="15" Background="LightGray"/>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                <TextBlock Text="Функция тренда цены" Margin="1" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=PolynomeString}" Margin="3" TextWrapping="Wrap"/>
+            </StackPanel>
+            <DockPanel Grid.Row="2" VerticalAlignment="Center">
+                <TextBlock Text="Цена товара на следующий месяц:" Margin="3"/>
+                <TextBlock Text="{Binding Path=NextCostValue}" Margin="3"/>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</UserControl>

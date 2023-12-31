@@ -1,0 +1,32 @@
+﻿<Window x:Class="DataBaseUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBaseUI"
+        mc:Ignorable="d"
+        Title="Система прогнозирования цен на товары в магазинах" MinHeight="768" MinWidth="1366" Icon="Resources/chart_line_icon.png" >
+    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True" Background="DimGray">
+        <DockPanel DockPanel.Dock="Top">
+            <RadioButton x:Name="UserRB" IsChecked="True" Margin="3" Checked="UserRB_Checked">Пользователь</RadioButton>
+            <RadioButton x:Name="AnalystRB" Margin="3" Checked="AnalystRB_Checked">Аналитик</RadioButton>
+            <RadioButton x:Name="AdminRB" Margin="3" Checked="AdminRB_Checked">Администратор</RadioButton>
+        </DockPanel>
+        <Separator DockPanel.Dock="Top"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ContentControl x:Name="ShopsContentControl" Grid.Row="0" Grid.Column="0"/>
+            <ContentControl x:Name="ProductsContentControl" Grid.Row="0" Grid.Column="1"/>
+            <ContentControl x:Name="SaleReceiptsContentControl" Grid.Row="1" Grid.Column="0"/>
+            <ContentControl x:Name="CostStoriesContentControl" Grid.Row="1" Grid.Column="1"/>
+        </Grid>
+    </DockPanel>
+</Window>

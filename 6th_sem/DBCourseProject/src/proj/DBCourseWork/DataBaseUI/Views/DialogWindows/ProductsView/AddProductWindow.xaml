@@ -1,0 +1,50 @@
+﻿<Window x:Class="DataBaseUI.Views.DialogWindows.AddProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBaseUI.Views.DialogWindows"
+        mc:Ignorable="d"
+        Title="Добавить существующий продукт" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid Background="DimGray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <ListBox Margin="15" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" Background="LightGray">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock FontSize="15" VerticalAlignment="Center" Margin="3" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <Rectangle VerticalAlignment="Stretch" Width="1" Margin="2" Stroke="Black" />
+                        <TextBlock FontSize="13" VerticalAlignment="Center" Margin="3" Text="{Binding Path=ProductType, UpdateSourceTrigger=PropertyChanged}" />
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Margin="300, 5, 300, 5" Click="Button_Click" Content="Добавить"/>
+
+        <GroupBox Header="Установить цену в магазине" Grid.Column="1" Margin="10, 100, 10, 175">
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock Text="Год:" Margin="3"/>
+                    <TextBox x:Name="NewCostYear" Margin="3" Background="LightGray"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="Месяц:" Margin="3"/>
+                    <TextBox x:Name="NewCostMonth" Margin="3" Background="LightGray"/>
+                </DockPanel>
+                <DockPanel>
+                    <TextBlock Text="Цена:" Margin="3"/>
+                    <TextBox x:Name="NewCostValue" Margin="3" Background="LightGray"/>
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
