@@ -25,7 +25,3 @@
 ## Экраны будущего приложения
 
 ![](/img/future_app.png)
-
-### P. S. 
-
-За лабы стоит благодарить вот эту мадмуазель [lenoleuum](https://github.com/lenoleuum) :З
